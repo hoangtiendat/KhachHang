@@ -1,0 +1,63 @@
+<!-- checkout page -->
+<div class="privacy py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>H</span>ồ sơ
+        </h3>
+        <!-- //tittle heading -->
+        <form action="/profile" method="post" class="row">
+            <div class="avatar col-md-6">
+                <div class="img-wrapper">
+                    <img src="../images/avatar.png"/>
+                </div>
+                <div class="controls form-group mt-md-5">
+                    <input type="file" name="Avatar" value="Chọn ảnh"/>
+                </div>
+                <div class="mt-3">
+                    <a href="/history" target="_blank">Lịch sử mua hàng...</a>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="address_form_agile">
+                    <div class="creditly-card-form agileinfo_form">
+                        <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                            <div class="information-wrapper">
+                                <div class="first-row">
+                                    <div class="controls form-group">
+                                        <label class="col-form-label" for="profile_name">Tên</label>
+                                        <input id="profile_name" class="billing-address-name form-control" type="text" name="name" placeholder="Họ tên" required="" value="Nguyễn Văn A">
+                                    </div>
+                                    <div class="controls form-group">
+                                        <label class="col-form-label" for="profile_email">Email</label>
+                                        <input id="profile_email" class="billing-address-name form-control" type="email" name="name" placeholder="Email" required="" value="nva@gmail.com">
+                                    </div>
+                                    <div class="w3_agileits_card_number_grids">
+                                        <div class="w3_agileits_card_number_grid_left form-group">
+                                            <div class="controls">
+                                                <label class="col-form-label" for="profile_phone">Số điện thoại</label>
+                                                <input type="text" id="profile_phone" class="form-control" placeholder="Số điện thoại" name="number" required="" value="123456789">
+                                            </div>
+                                        </div>
+                                        <div class="w3_agileits_card_number_grid_right form-group">
+                                            <div class="controls">
+                                                <label class="col-form-label" for="profile_address">Địa chỉ</label>
+                                                <input type="text" id="profile_address" class="form-control" placeholder="Địa chỉ" name="landmark" required="" value="227 NVC TP HCM Việt Nam">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="controls form-group">
+                                        <label class="col-form-label" for="profile_city">Tỉnh thành</label>
+                                        <input type="text" id="profile_city" class="form-control" placeholder="Tỉnh thành" name="city" required="" value="TP Hồ Chí Minh">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="profile_change_btn" class="submit btn check_out">Cập nhật</button>
+        </form>
+    </div>
+</div>
+<!-- //checkout page -->
