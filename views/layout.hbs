@@ -1065,7 +1065,7 @@
           $(function(){
               var divProduct = $("#product");
               if(divProduct !== null){
-                  $.getJSON("http://localhost:3000/api/product",  function(data) {
+                  $.getJSON("https://floating-sea-37462.herokuapp.com/api/product",  function(data) {
                       var template  = $("#product").html();
                       var templateScript = Handlebars.compile(template);
                       for(const i in data){
