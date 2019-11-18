@@ -1,46 +1,9 @@
 const mongoose = require('mongoose');
 const readLine = require('readline');
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/customer?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true});
-// client.connect(err => {
-//   const collection = client.db("customer").collection("product");
-//   // perform actions on the collection object
-//   // console.log(collection);
-//   collection.find({}).toArray(function(err, result) {
-//     if (err) throw err;
-//     console.log(result);
-//   });
-//   client.close();
-// });
-// require('./product');
-// const Product = mongoose.model('Product');
-
-
-// const conn = mongoose.createConnection('mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/customer?retryWrites=true&w=majority');
-// console.log(conn);
-// conn
 let dbURI = 'mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/customer?retryWrites=true&w=majority';
-
-// if (process.env.NODE_ENV === 'production') {
-//   dbURI = process.env.MLAB_URI;
-// }
-// console.log(process.env.NODE_ENV);
-
 const connect = () => {
   setTimeout(() => mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }), 1000);
 }
-
-// mongoose.connect(dbURI, function(err, db) {
-//   if (err) throw err;
-//   var dbo = db.db("customer");
-//   dbo.collection("product").findOne({}, function(err, result) {
-//     if (err) throw err;
-//     console.log(result.name);
-//     db.close();
-//   });
-// });
-
 mongoose.connection.on('connected', () => {
   console.log('connected');
   

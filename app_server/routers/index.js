@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const ctrlMain = require('../controllers/main');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -46,9 +47,7 @@ router.post('/profile', function(req, res, next) {
   res.render('profile', { title: 'Hồ sơ' });
 });
 
-router.get('/product', function(req, res, next) {
-  res.render('product', { title: 'Sản phẩm' });
-});
+router.get('/product', ctrlMain.product);
 
 router.post('/product', function(req, res, next) {
   res.render('product', { title: 'Sản phẩm' });

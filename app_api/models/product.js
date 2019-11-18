@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
+  _id: String,
   new: Boolean,
   name: String,
   urlImage: String,
   discount: String,
-  price: String
+  price: String,
+  category: String
 });
 
 productSchema.index({coords: '2dsphere'});

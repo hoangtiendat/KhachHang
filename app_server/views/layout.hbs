@@ -340,7 +340,7 @@
           <div class="container">
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
                   <div class="agileits-navi_search">
-                      <form action="/product" method="post">
+<!--                       <form action="/product" method="post">
                           <select id="agileinfo-nav_search" name="agileinfo_search" class="border" required="">
                               <option value="">Tất cả loại hàng</option>
                               <option value="Televisions">Tivi</option>
@@ -352,7 +352,7 @@
                               <option value="iPad & Tablets">iPad & Tablets</option>
                               <option value="Cameras & Camcorders">Cameras & Camcorders</option>
                           </select>
-                      </form>
+                      </form> -->
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                           aria-expanded="false" aria-label="Toggle navigation">
@@ -371,46 +371,25 @@
                               </a>
                               <div class="dropdown-menu">
                                   <div class="agile_inner_drop_nav_info p-4">
-                                      <h5 class="mb-3">Điện thoại, Máy tính</h5>
+                                      <h5 class="mb-3"><a href="product">All</a></h5>
                                       <div class="row">
                                           <div class="col-sm-6 multi-gd-img">
                                               <ul class="multi-column-dropdown">
                                                   <li>
-                                                      <a href="product">Điện thoại</a>
+                                                      <a href="product?category=phone">Điện thoại</a>
                                                   </li>
                                                   <li>
-                                                      <a href="product">Phụ kiện điện thoại</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Vỏ, ốp lưng</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Miếng dán màn hình</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Hàng tân trang</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Tablets</a>
+                                                      <a href="product?category=tablet">Tablets</a>
                                                   </li>
                                               </ul>
                                           </div>
                                           <div class="col-sm-6 multi-gd-img">
                                               <ul class="multi-column-dropdown">
                                                   <li>
-                                                      <a href="product">Laptops</a>
+                                                      <a href="product?category=laptop">Laptops</a>
                                                   </li>
                                                   <li>
-                                                      <a href="product">Máy in, mực</a>
-                                                  </li>
-                                                  <li>Thie
-                                                      <a href="product">Thiết bị mạng</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Game</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Phần mềm</a>
+                                                      <a href="product?category=watch">Đồng hồ</a>
                                                   </li>
                                               </ul>
                                           </div>
@@ -420,50 +399,22 @@
                           </li>
                           <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Đồ gia dụng
+                                  Nhà sản xuất
                               </a>
                               <div class="dropdown-menu">
                                   <div class="agile_inner_drop_nav_info p-4">
-                                      <h5 class="mb-3">TV, Đồ gia dụng, Đồ điện tử</h5>
+                                      <h5 class="mb-3"><a href="product">All</a></h5>
                                       <div class="row">
                                           <div class="col-sm-6 multi-gd-img">
                                               <ul class="multi-column-dropdown">
                                                   <li>
-                                                      <a href="product">Tivi</a>
+                                                      <a href="product?source=apple">Apple</a>
                                                   </li>
                                                   <li>
-                                                      <a href="product">Tai nghe</a>
+                                                      <a href="product?source=samsung">Samsung</a>
                                                   </li>
                                                   <li>
-                                                      <a href="product">Loa</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Cameras</a>
-                                                  </li>
-                                              </ul>
-                                          </div>
-                                          <div class="col-sm-6 multi-gd-img">
-                                              <ul class="multi-column-dropdown">
-                                                  <li>
-                                                      <a href="product">Nhạc cụ</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Gaming Consoles</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Đồ điện tử</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Điều hòa</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Tủ lạnh</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Máy giặt</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="product">Đồ nội thất</a>
+                                                      <a href="product?source=other">Khác</a>
                                                   </li>
                                               </ul>
                                           </div>
@@ -1065,7 +1016,8 @@
           $(function(){
               var divProduct = $("#product");
               if(divProduct !== null){
-                  $.getJSON("https://floating-sea-37462.herokuapp.com/api/product",  function(data) {
+                  // $.getJSON("https://floating-sea-37462.herokuapp.com/api/product",  function(data) {
+                    $.getJSON("http://localhost:3000/api/product",  function(data) {
                       var template  = $("#product").html();
                       var templateScript = Handlebars.compile(template);
                       for(const i in data){
@@ -1077,7 +1029,8 @@
               }
               var divProductNew = $("#product");
               if(divProductNew !== null){
-                  $.getJSON("https://floating-sea-37462.herokuapp.com/api/product",  function(data) {
+                  // $.getJSON("https://floating-sea-37462.herokuapp.com/api/product",  function(data) {
+                    $.getJSON("http://localhost:3000/api/product",  function(data) {
                       var template  = $("#product").html();
                       var templateScript = Handlebars.compile(template);
                       for(const i in data){

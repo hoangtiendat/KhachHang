@@ -8,15 +8,15 @@ require('./app_api/models/db');
 
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./app_server/routers/index');
+var usersRouter = require('./app_server/routers/users');
 
 const apiRouter = require('./app_api/routers/index');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
