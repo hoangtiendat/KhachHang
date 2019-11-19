@@ -4,14 +4,13 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('./app_api/models/db');
+require('./app_server/models/db');
 
 
 
 var indexRouter = require('./app_server/routers/index');
 var usersRouter = require('./app_server/routers/users');
 
-const apiRouter = require('./app_api/routers/index');
 
 var app = express();
 
@@ -28,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', apiRouter);
 app.use(function(req, res, next) {
   if (req.headers['content-type'] === 'application/json;') {
     req.headers['content-type'] = 'application/json';

@@ -1,21 +1,12 @@
 const mongoose = require('mongoose');
 const readLine = require('readline');
-
-let dbURI = 'mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/test?retryWrites=true';
-
-// if (process.env.NODE_ENV === 'production') {
-//   dbURI = process.env.MLAB_URI;
-// }
-// console.log(process.env.NODE_ENV);
-// console.log(process.env.MLAB_URI);
+let dbURI = 'mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/customer?retryWrites=true&w=majority';
 const connect = () => {
-  console.log('connected 1111');
   setTimeout(() => mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }), 1000);
 }
-
 mongoose.connection.on('connected', () => {
   console.log('connected');
-
+  
 });
 
 mongoose.connection.on('error', err => {
@@ -59,7 +50,9 @@ process.on('SIGTERM', () => {
     process.exit(0);
   });
 });
-console.log('connected 2222');
+
+
 connect();
+
 
 require('./product');

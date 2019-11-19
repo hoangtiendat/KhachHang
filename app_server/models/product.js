@@ -5,11 +5,10 @@ const productSchema = new mongoose.Schema({
   new: Boolean,
   name: String,
   urlImage: String,
-  discount: Number,
-  price: Number,
-  category: String,
-  source: String
+  discount: String,
+  price: String,
+  category: String
 });
 
-
+productSchema.index({coords: '2dsphere'});
 mongoose.model('Product', productSchema);

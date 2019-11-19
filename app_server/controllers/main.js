@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
+const home = (req, res) => {
+	Product.find({"new": true}, function(err, products) {
+		res.render('index', { title: 'Home', products: products });
+	});
+};
+
 const product = (req, res) => {
 	if(req.query.category === 'phone'){
 		Product.find({"category": "phone"}, function(err, products) {
@@ -44,6 +50,7 @@ const productDtl = (req, res) => {
 };
 
 module.exports = {
+	home,
 	product,
 	productDtl
 }
