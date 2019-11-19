@@ -43,14 +43,8 @@ const product = (req, res) => {
 	}
 };
 
-const productDtl = (req, res) => {
-	Product.find({"name": req.query.name}, function(err, products) {
-		res.render('item_detail', { title: 'Sản phẩm', products: products });
-	});
-};
-
 module.exports = {
 	home,
-	product,
-	productDtl
+	product
+
 }

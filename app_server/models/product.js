@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  _id: String,
+  id: String,
   new: Boolean,
   name: String,
   urlImage: String,
