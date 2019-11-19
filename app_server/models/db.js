@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const readLine = require('readline');
 
-let dbURI = 'mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/test?retryWrites=true';
+  let dbURI = 'mongodb+srv://htdat139:hoangtiendat139@cluster0-nae7g.mongodb.net/test?retryWrites=true';
 
 // if (process.env.NODE_ENV === 'production') {
 //   dbURI = process.env.MLAB_URI;

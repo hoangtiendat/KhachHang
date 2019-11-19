@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const product = (req, res) => {
 	if(req.query.category === 'phone'){
@@ -37,13 +38,24 @@ const product = (req, res) => {
 	}
 };
 
-const productDtl = (req, res) => {
-	Product.find({"name": req.query.name}, function(err, products) {
-		res.render('item_detail', { title: 'Sản phẩm', products: products });
+const productDetail = (req, res) => {
+	Product.findOne({"id": req.query.id}, function(err, product) {
+		res.render('item_detail', (!product)? {
+			title: 'Sản phẩm'
+		}: {
+			title: 'Sản phẩm',
+			new: product.new,
+			name: product.name,
+			discount: product.discount,
+			price: product.price,
+			urlImage: product.urlImage,
+			category: product.category,
+			source: product.source
+		});
 	});
 };
 
 module.exports = {
 	product,
-	productDtl
+	productDetail,
 }

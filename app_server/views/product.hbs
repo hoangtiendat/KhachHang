@@ -23,7 +23,11 @@
                                       <img src="{{urlImage}}" alt="">
                                       <div class="men-cart-pro">
                                           <div class="inner-men-cart-pro">
-                                              <a href="item_detail" class="link-product-add-cart">Xem nhanh</a>
+                                              <form action="/item_detail" method="get">
+                                                  <input type="hidden" name="id" value="{{id}}"/>
+                                                  <a href="#" onclick="this.parentNode.submit(); return false;" class="link-product-add-cart">Xem nhanh</a>
+                                              </form>
+
                                           </div>
                                       </div>
                                       {{#if new}}
@@ -32,7 +36,10 @@
                                   </div>
                                   <div class="item-info-product text-center border-top mt-4">
                                       <h4 class="pt-1">
-                                          <a href="item_detail">{{name}}</a>
+                                          <form action="/item_detail" method="get" style="">
+                                              <input type="hidden" name="id" value="{{id}}"/>
+                                              <a href="#" onclick="this.parentNode.submit(); return false;">{{name}}</a>
+                                          </form>
                                       </h4>
                                       <div class="info-product-price my-2">
                                           <span class="item_price">{{discount}}</span>

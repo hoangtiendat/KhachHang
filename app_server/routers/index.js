@@ -7,9 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Home' });
 });
 
-router.get('/item_detail', function(req, res, next) {
-  res.render('item_detail', { title: 'Sản phẩm' });
-});
+router.get('/item_detail', ctrlMain.productDetail);
 
 router.get('/checkout', function(req, res, next) {
   res.render('checkout', { title: 'Thanh toán' });

@@ -11,17 +11,17 @@
                 <div class="grid images_3_of_2">
                     <div class="flexslider">
                         <ul class="slides">
-                            <li data-thumb="images/si1.jpg">
+                            <li data-thumb="{{urlImage}}">
                                 <div class="thumb-image">
-                                    <img src="images/si1.jpg" data-imagezoom="true" class="img-fluid" alt=""> </div>
+                                    <img src="{{urlImage}}" data-imagezoom="true" class="img-fluid" alt=""> </div>
                             </li>
-                            <li data-thumb="images/si2.jpg">
+                            <li data-thumb="{{urlImage}}">
                                 <div class="thumb-image">
-                                    <img src="images/si2.jpg" data-imagezoom="true" class="img-fluid" alt=""> </div>
+                                    <img src="{{urlImage}}" data-imagezoom="true" class="img-fluid" alt=""> </div>
                             </li>
-                            <li data-thumb="images/si3.jpg">
+                            <li data-thumb="{{urlImage}}">
                                 <div class="thumb-image">
-                                    <img src="images/si3.jpg" data-imagezoom="true" class="img-fluid" alt=""> </div>
+                                    <img src="{{urlImage}}" data-imagezoom="true" class="img-fluid" alt=""> </div>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -30,10 +30,10 @@
             </div>
 
             <div class="col-lg-7 single-right-left simpleCart_shelfItem">
-                <h3 class="mb-3">Samsung Galaxy J7 Prime (Gold, 16 GB) (3 GB RAM)</h3>
+                <h3 class="mb-3">{{name}}</h3>
                 <p class="mb-3">
-                    <span class="item_price">5.000.000 VNĐ</span>
-                    <del class="mx-2 font-weight-light">6.000.000</del>
+                    <span class="item_price">{{discount}}</span>
+                    <del class="mx-2 font-weight-light">{{price}}</del>
                     <label>Giao hàng miễn phí</label>
                 </p>
                 <div class="single-infoagile">
