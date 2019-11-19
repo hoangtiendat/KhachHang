@@ -588,6 +588,10 @@ h3.tittle-w3l span {
     position: relative;
 }
 
+.men-thumb-item img{
+    max-height: 200px;
+}
+
 #PPminicarts .minicarts-submit img {
     vertical-align: middle;
     padding: 4px 0 0 2px;
