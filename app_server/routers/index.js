@@ -1,67 +1,42 @@
 var express = require('express');
 var router = express.Router();
 const ctrlMain = require('../controllers/main');
+const productCtrl = require('../controllers/product');
 
-/* GET home page. */
+/* GET Home page. */
 router.get('/', ctrlMain.home);
 
-router.get('/item_detail', ctrlMain.productDetail);
+/* GET all Products page. */
+router.get('/product', productCtrl.product);
+router.post('/product', productCtrl.product);
 
-router.get('/checkout', function(req, res, next) {
-  res.render('checkout', { title: 'Thanh toán' });
-});
+/* GET item Detail page. */
+router.get('/item_detail', productCtrl.productDetail);
 
-router.post('/checkout', function(req, res, next) {
-  res.render('checkout', { title: 'Thanh toán' });
-});
+router.get('/checkout', ctrlMain.checkout);
 
-router.get('/history', function(req, res, next) {
-  res.render('history', { title: 'Lịch sử' });
-});
+router.post('/checkout', ctrlMain.checkout);
 
-router.get('/search', function(req, res, next) {
-  res.render('search', { title: 'Tìm kiếm' });
-});
+router.get('/history', ctrlMain.history);
 
-router.post('/search', function(req, res, next) {
-  res.render('search', { title: 'Tìm kiếm' });
-});
+router.get('/search', ctrlMain.search);
 
-router.get('/about', function(req, res, next) {
-  res.render('about', { title: 'About Us' });
-});
+router.post('/search', ctrlMain.search);
 
-router.get('/contact', function(req, res, next) {
-  res.render('contact', { title: 'Liên hệ' });
-});
+router.get('/profile', ctrlMain.profile);
 
-router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Hồ sơ' });
-});
+router.post('/profile', ctrlMain.profile);
 
-router.post('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Hồ sơ' });
-});
+router.get('/contact', ctrlMain.contact);
 
-router.get('/product', ctrlMain.product);
+router.get('/about', ctrlMain.about);
 
-router.post('/product', function(req, res, next) {
-  res.render('product', { title: 'Sản phẩm' });
-});
+router.get('/privacy', ctrlMain.privacy);
 
-router.get('/privacy', function(req, res, next) {
-  res.render('privacy', { title: 'Riêng tư' });
-});
+router.get('/terms', ctrlMain.terms);
 
-router.get('/terms', function(req, res, next) {
-  res.render('terms', { title: 'Chính sách' });
-});
+router.get('/help', ctrlMain.help);
 
-router.get('/help', function(req, res, next) {
-  res.render('help', { title: 'Hỗ trợ' });
-});
+router.get('/faqs', ctrlMain.faqs);
 
-router.get('/faqs', function(req, res, next) {
-  res.render('faqs', { title: 'FAQS' });
-});
 module.exports = router;
