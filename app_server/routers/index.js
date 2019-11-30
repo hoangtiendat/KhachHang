@@ -23,6 +23,9 @@ router.post('/login', function(req, res, next){
     })(req, res, next)
 });
 
+/* GET Home page. */
+router.get('/logout', accountCtrl.logout);
+
 /* GET all Products page. */
 router.get('/product', productCtrl.product);
 router.post('/product', productCtrl.product);

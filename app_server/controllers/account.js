@@ -5,7 +5,6 @@ const loginPage = (req, res) => {
         title: 'Đăng nhập',
         layout: false ,
         user: (req.isAuthenticated) ? req.user : null,
-        error_message: (req.query.error_message)? req.query.error_message : null
     });
 }
 const login = (req, res) => {
@@ -14,7 +13,12 @@ const login = (req, res) => {
         user: (req.isAuthenticated) ? req.user : null
     });
 }
+const logout = (req, res) => {
+    req.logOut();
+    res.redirect('/');
+}
 module.exports = {
     loginPage,
-    login
+    login,
+    logout
 }
