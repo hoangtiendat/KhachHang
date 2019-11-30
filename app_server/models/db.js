@@ -8,7 +8,6 @@ const connect = () => {
 }
 mongoose.connection.on('connected', () => {
   console.log('connected');
-  
 });
 
 mongoose.connection.on('error', err => {
@@ -57,3 +56,4 @@ process.on('SIGTERM', () => {
 connect();
 
 require('./product');
+require('./user');

@@ -57,29 +57,31 @@
                           <li class="text-center border-right text-white">
                               <i class="fas fa-phone mr-2"></i> 001 234 5678
                           </li>
-                          <li id="login" class="text-center border-right text-white">
-                              <a href="#" data-toggle="modal" data-target="#loginModal" class="text-white">
-                                  <i class="fas fa-sign-in-alt mr-2"></i> Đăng nhập </a>
-                          </li>
-                          <li id="register" class="text-center text-white">
-                              <a href="#" data-toggle="modal" data-target="#registerModal" class="text-white">
-                                  <i class="fas fa-sign-out-alt mr-2"></i> Đăng ký </a>
-                          </li>
-                          <li id="welcomeUser" class="text-center text-white" style="display:none">
-                              <div class="show">
-                                  <a href="" class="text-white dropdown-toggle" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      <i class="fas fa-sign-out-alt mr-2" ></i> Chào PTUDW</a>
-                                  <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                                      <a class="dropdown-item" href="/profile">Hồ sơ</a>
-                                      <a class="dropdown-item" href="/history">Lịch sử</a>
+                          {{#if user}}
+                              <li id="welcomeUser" class="text-center border-right text-white">
+                                  <div class="show">
+                                      <a href="" class="text-white dropdown-toggle" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="fas fa-sign-out-alt mr-2" ></i> Chào {{user.username}}</a>
+                                      <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                          <a class="dropdown-item" href="/profile">Hồ sơ</a>
+                                          <a class="dropdown-item" href="/history">Lịch sử</a>
+                                      </div>
                                   </div>
-                              </div>
-
-                          </li>
-                          <li id="logout" class="text-center text-white" style="display:none">
-                              <a href="#" class="text-white">
-                                  <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất</a>
-                          </li>
+                              </li>
+                              <li id="logout" class="text-center text-white">
+                                  <a href="#" class="text-white">
+                                      <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất</a>
+                              </li>
+                          {{else}}
+                              <li id="login" class="text-center border-right text-white">
+                                  <a href="/login" class="text-white">
+                                      <i class="fas fa-sign-in-alt mr-2"></i> Đăng nhập </a>
+                              </li>
+                              <li id="register" class="text-center text-white">
+                                  <a href="#" data-toggle="modal" data-target="#registerModal" class="text-white">
+                                      <i class="fas fa-sign-out-alt mr-2"></i> Đăng ký </a>
+                              </li>
+                          {{/if}}
                       </ul>
                       <!-- //header lists -->
                   </div>
@@ -108,48 +110,6 @@
           </div>
       </div>
       <!-- //shop locator (popup) -->
-
-      <!-- modals -->
-      <!-- log in -->
-      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title text-center">Đăng nhập</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                      <form name="loginForm" action="" method="post">
-                          <div class="form-group">
-                              <label class="col-form-label">Tài khoản</label>
-                              <input type="text" class="form-control" placeholder=" " name="Name" required="">
-                          </div>
-                          <div class="form-group">
-                              <label class="col-form-label">Mật khẩu</label>
-                              <input type="password" class="form-control" placeholder=" " name="Password" required="">
-                          </div>
-                          <div class="right-w3l">
-                              <input id="loginBtn" type="submit" class="form-control" data-dismiss="modal" value="Đăng nhập">
-                          </div>
-                          <div class="sub-w3l">
-                              <div class="custom-control custom-checkbox mr-sm-2 align-right">
-                                  <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                  <label class="custom-control-label" for="customControlAutosizing">Duy trì đăng nhập</label>
-                                  <a href="" id="forgetPasswordBtn" class="float-right text-right dont-do" data-toggle="modal" data-target="#forgetPasswordModal">
-                                      Quên mật khẩu</a>
-                              </div>
-                          </div>
-                          <p class="text-center dont-do mt-3">Chưa có tài khoản ?
-                              <a href="" data-toggle="modal" data-target="#registerModal">
-                                  Đăng ký ngay</a>
-                          </p>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
 
       <!-- register -->
       <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true">

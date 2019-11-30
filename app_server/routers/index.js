@@ -1,10 +1,27 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 const ctrlMain = require('../controllers/main');
+const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
+require('./passport');
+
 
 /* GET Home page. */
 router.get('/', ctrlMain.home);
+
+/* GET Login page. */
+router.get('/login', accountCtrl.loginPage);
+router.post('/login', function(req, res, next){
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/login') }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            return res.redirect('/');
+        });
+    })(req, res, next)
+});
 
 /* GET all Products page. */
 router.get('/product', productCtrl.product);
