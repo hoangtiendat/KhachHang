@@ -33,7 +33,7 @@
       <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
             rel="stylesheet">
       <!-- //web fonts -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
 
   </head>
@@ -77,8 +77,8 @@
                                   <a href="/login" class="text-white">
                                       <i class="fas fa-sign-in-alt mr-2"></i> Đăng nhập </a>
                               </li>
-                              <li id="register" class="text-center text-white">
-                                  <a href="#" data-toggle="modal" data-target="#registerModal" class="text-white">
+                              <li id="signup" class="text-center text-white">
+                                  <a href="/signup" class="text-white">
                                       <i class="fas fa-sign-out-alt mr-2"></i> Đăng ký </a>
                               </li>
                           {{/if}}
@@ -110,50 +110,6 @@
           </div>
       </div>
       <!-- //shop locator (popup) -->
-
-      <!-- register -->
-      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Đăng ký</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                      <form name="registerForm" action="" method="post">
-                          <div class="form-group">
-                              <label class="col-form-label">Tên</label>
-                              <input type="text" class="form-control" placeholder=" " name="Name" required="">
-                          </div>
-                          <div class="form-group">
-                              <label class="col-form-label">Email</label>
-                              <input type="email" class="form-control" placeholder=" " name="Email" required="">
-                          </div>
-                          <div class="form-group">
-                              <label class="col-form-label">Mật khẩu</label>
-                              <input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
-                          </div>
-                          <div class="form-group">
-                              <label class="col-form-label">Xác nhận mật khẩu</label>
-                              <input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
-                          </div>
-                          <div class="right-w3l">
-                              <input id="registerBtn" type="submit" class="form-control" value="Đăng ký">
-                          </div>
-                          <div class="sub-w3l">
-                              <div class="custom-control custom-checkbox mr-sm-2">
-                                  <input type="checkbox" class="custom-control-input" id="registerCb">
-                                  <label class="custom-control-label" for="registerCb">Tôi đồng ý điều khoản</label>
-                                  <span id="registerPolicyMsg" class="text-danger" >Chưa chấp nhận điều khoản</span>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
 
       <!-- forgot password -->
       <div class="modal fade" id="forgetPasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -725,13 +681,28 @@
       </div>
       <!-- //copyright -->
 
+      <div id="loading" class="sk-fading-circle" style="display: none;">
+          <div class="sk-circle1 sk-circle"></div>
+          <div class="sk-circle2 sk-circle"></div>
+          <div class="sk-circle3 sk-circle"></div>
+          <div class="sk-circle4 sk-circle"></div>
+          <div class="sk-circle5 sk-circle"></div>
+          <div class="sk-circle6 sk-circle"></div>
+          <div class="sk-circle7 sk-circle"></div>
+          <div class="sk-circle8 sk-circle"></div>
+          <div class="sk-circle9 sk-circle"></div>
+          <div class="sk-circle10 sk-circle"></div>
+          <div class="sk-circle11 sk-circle"></div>
+          <div class="sk-circle12 sk-circle"></div>
+      </div>
+
       <!-- js-files -->
       <!-- jquery -->
-      <script src="javascripts/jquery-2.2.3.min.js"></script>
+      <script type="text/javascript" src="javascripts/jquery-2.2.3.min.js"></script>
       <!-- //jquery -->
 
       <!-- nav smooth scroll -->
-      <script>
+      <script type="text/javascript">
           $(document).ready(function () {
               $(".dropdown").hover(
                       function () {
@@ -744,12 +715,12 @@
                       }
               );
           });
-      </script>
+      </script type="text/javascript">
       <!-- //nav smooth scroll -->
 
       <!-- popup modal (for location)-->
-      <script src="javascripts/jquery.magnific-popup.js"></script>
-      <script>
+      <script type="text/javascript" src="javascripts/jquery.magnific-popup.js"></script>
+      <script type="text/javascript">
           $(document).ready(function () {
               $('.popup-with-zoom-anim').magnificPopup({
                   type: 'inline',
@@ -768,8 +739,8 @@
       <!-- //popup modal (for location)-->
 
       <!-- cart-js -->
-      <script src="javascripts/minicart.js"></script>
-      <script>
+      <script type="text/javascript" src="javascripts/minicart.js"></script>
+      <script type="text/javascript">
           paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
 
           paypals.minicarts.cart.on('checkout', function (evt) {
@@ -791,55 +762,19 @@
       </script>
       <!-- //cart-js -->
 
-      <!-- password-script -->
-      <script>
-          window.onload = function () {
-              function validatePassword(id1, id2) {
-                  var pass2 = document.getElementById(id2).value;
-                  var pass1 = document.getElementById(id1).value;
-                  if (pass1 != pass2)
-                      document.getElementById(id2).setCustomValidity("Mật khẩu không trùng nhau");
-                  else
-                      document.getElementById(id2).setCustomValidity('');
-                  //empty string means no validation error
-              }
-
-              document.getElementById("password1").addEventListener('change', (e) => {
-                  validatePassword("password1", "password2");
-              })
-              document.getElementById("password2").addEventListener('change', (e) => {
-                  validatePassword("password1", "password2");
-              })
-
-              document.getElementById("recoverPassword1").addEventListener('change', (e) => {
-                  validatePassword("recoverPassword1", "recoverPassword2");
-              })
-              document.getElementById("recoverPassword2").addEventListener('change', (e) => {
-                  validatePassword("recoverPassword1", "recoverPassword2");
-              })
-
-              $('#agileinfo-nav_search').on('change', function (e) {
-                  $(this).parent().trigger('submit', (e) => {});
-              })
-          }
-
-
-      </script>
-      <!-- //password-script -->
-
       <!-- scroll seller -->
-      <script src="javascripts/scroll.js"></script>
+      <script type="text/javascript" src="javascripts/scroll.js"></script>
       <!-- //scroll seller -->
 
       <!-- imagezoom -->
-      <script src="/javascripts/imagezoom.js"></script>
+      <script type="text/javascript" src="/javascripts/imagezoom.js"></script>
       <!-- //imagezoom -->
 
       <!-- flexslider -->
       <link rel="stylesheet" href="/stylesheets/flexslider.css" type="text/css" media="screen" />
 
-      <script src="/javascripts/jquery.flexslider.js"></script>
-      <script>
+      <script type="text/javascript" src="/javascripts/jquery.flexslider.js"></script>
+      <script type="text/javascript">
           // Can also be used with $(document).ready()
           $(window).load(function () {
               $('.flexslider').flexslider({
@@ -851,7 +786,7 @@
       <!-- //FlexSlider-->
 
       <!-- quantity -->
-      <script>
+      <script type="text/javascript">
           $('.value-plus').on('click', function () {
               var divUpd = $(this).parent().find('.value'),
                       newVal = parseInt(divUpd.text(), 10) + 1;
@@ -865,7 +800,7 @@
           });
       </script>
       <!--quantity-->
-      <script>
+      <script type="text/javascript">
           $(document).ready(function (c) {
               $('.close1').on('click', function (c) {
                   $('.rem1').fadeOut('slow', function (c) {
@@ -874,7 +809,7 @@
               });
           });
       </script>
-      <script>
+      <script type="text/javascript">
           $(document).ready(function (c) {
               $('.close2').on('click', function (c) {
                   $('.rem2').fadeOut('slow', function (c) {
@@ -883,7 +818,7 @@
               });
           });
       </script>
-      <script>
+      <script type="text/javascript">
           $(document).ready(function (c) {
               $('.close3').on('click', function (c) {
                   $('.rem3').fadeOut('slow', function (c) {
@@ -899,9 +834,9 @@
       <!-- //smoothscroll -->
 
       <!-- start-smooth-scrolling -->
-      <script src="javascripts/move-top.js"></script>
-      <script src="javascripts/easing.js"></script>
-      <script>
+      <script type="text/javascript" src="javascripts/move-top.js"></script>
+      <script type="text/javascript" src="javascripts/easing.js"></script>
+      <script type="text/javascript">
           jQuery(document).ready(function ($) {
               $(".scroll").click(function (event) {
                   event.preventDefault();
@@ -915,7 +850,7 @@
       <!-- //end-smooth-scrolling -->
 
       <!-- smooth-scrolling-of-move-up -->
-      <script>
+      <script type="text/javascript">
           $(document).ready(function () {
               /*
               var defaults = {
@@ -934,14 +869,14 @@
       <!-- //smooth-scrolling-of-move-up -->
 
       <!-- for bootstrap working -->
-      <script src="javascripts/umd/popper.min.js"></script>
-      <script src="javascripts/bootstrap.js"></script>
-
+      <script type="text/javascript" src="javascripts/umd/popper.min.js"></script>
+      <script type="text/javascript" src="javascripts/bootstrap.js"></script>
       <!-- //for bootstrap working -->
 
-      <!-- login -->
-      <!--<script src="javascripts/account.js"></script>-->
-      <!-- end login -->
+      <!-- Service js-->
+      <script type="text/javascript" src="javascripts/service/loading.js"></script>
+
+      <!-- //Service js -->
       <!-- //js-files -->
   </body>
 </html>

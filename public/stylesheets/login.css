@@ -7,9 +7,21 @@
 .container {
     padding: 50px 0;
 }
+.signup-container {
+    padding: 20px 0;
+}
 .modal-dialog {
     margin: 0 auto;
 }
 .modal-header{
     margin: 0 auto;
+}
+.error {
+    color: #ff471a;
+}
+.alert-message {
+    width: 93%;
+    position: absolute;
+    top: 0;
+    text-align: center;
 }

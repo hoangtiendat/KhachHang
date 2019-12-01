@@ -1,105 +1,65 @@
 (function(){
-    const $login = $('#login');
-    const $loginBtn = $('#loginBtn');
-    const $logout = $('#logout');
-    const $register = $('#register');
-    const $registerBtn = $('#registerBtn');
-    const $registerCb = $('#registerCb');
-    const $registerPolicyMsg = $('#registerPolicyMsg');
-    const $welcomeUser = $('#welcomeUser');
-    const $messageModal = $('#messageModal');
-    const $loginModal = $('#loginModal');
-    const $registerModal = $('#registerModal');
-    const $forgetPasswordModal = $('#forgetPasswordModal');
-    const $verificationModal = $('#verificationModal');
-    const $recoverPasswordModal = $('#recoverPasswordModal');
+    const $loginForm = $(document.loginForm);
+    const $signupForm = $(document.signupForm);
+    const $alertMsg = $('.alert-message');
+    const $submitBtns = $('.submitBtn');
+    const alertTimeout = 3000;
 
-    const $forgetPasswordBtn = $('#forgetPasswordBtn');
-    const $forgetPasswordSendMailBtn = $('#forgetPasswordSendMailBtn');
-    const $verificationBtn = $('#verificationBtn');
-    const $recoverPasswordBtn = $('#recoverPasswordBtn');
-
-    $loginBtn.on('click', (e) => {
-        e.preventDefault();
-        $login.hide();
-        $register.hide();
-        $logout.show();
-        $welcomeUser.show()
-
-        document.loginForm.Name.value = "";
-        document.loginForm.Password.value = "";
-    })
-
-    $logout.on('click', (e) => {
-        e.preventDefault();
+    if ($alertMsg.css('display') !== 'none'){
         setTimeout(()=>{
-            $login.show();
-            $register.show();
-            $logout.hide();
-            $welcomeUser.hide();
-        }, 200);
-    });
+            $alertMsg.css('display', 'none');
+        }, alertTimeout)
+    }
+    if ($signupForm.length > 0){
+        $signupForm .validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 7,
+                },
+                "re-password": {
+                    required: true,
+                    equalTo: "#password1"
+                },
+                agree: {
+                    required: true
+                }
+            },
+            messages: {
+                username: {
+                    required: "Username không được để trống",
+                },
+                email: {
+                    required: "Email không được để trống",
+                    email: "Email phải có dạng example@abc.com"
+                },
+                password: {
+                    required: "Mật khẩu không được để trống",
+                    minlength: "Mật khẩu phải có trên 6 ký tự"
+                },
+                "re-password": {
+                    equalTo: "Xác nhận mật khẩu không trùng khớp"
+                },
+                agree: {
+                    required: "Chưa chấp nhận điều khoản"
+                }
+            }
+        });
+    }
 
-    $welcomeUser.on('click', (e) => {
-        //e.preventDefault();
-    });
-
-    $registerBtn.on('click', (e) => {
-        e.preventDefault();
-        if ($registerCb[0].checked){
-            $messageModal.find('h5.modal-title').text("Đăng ký thành công");
-            $messageModal.modal('show');
-            $registerModal.modal('hide');
-            document.registerForm.reset();
+    $('#signupBtn').on('click', (e) => {
+        if ($signupForm.valid()){
+            showLoading();
         }
-        else {
-            $registerPolicyMsg.show();
-        }
-
-    });
-
-    $registerCb.on('click', (e) => {
-        if (e.target.checked)
-            $registerPolicyMsg.hide();
-        else
-            $registerPolicyMsg.show();
     })
-
-    $forgetPasswordBtn.on('click', (e) => {
-        e.preventDefault();
-            $loginModal.modal('hide');
-    })
-
-    $forgetPasswordSendMailBtn.on('click', (e) => {
-        e.preventDefault();
-        if (document.forgetPasswordForm.email.value !== ""){
-            $verificationModal.modal('show');
-            $forgetPasswordModal.modal('hide');
-        }
-
-    })
-
-    $verificationBtn.on('click', (e) => {
-        e.preventDefault();
-        if (document.verificationForm.code.value !== ""){
-            $recoverPasswordModal.modal('show');
-            $verificationModal.modal('hide');
-        }
-
-    })
-
-    $recoverPasswordBtn.on('click', (e) => {
-        e.preventDefault();
-        const pw = document.recoverPasswordForm.Password.value;
-        const confirmPw = document.recoverPasswordForm.ConfirmPassword.value;
-        if (pw !== "" && confirmPw !== "" && pw === confirmPw){
-            $messageModal.find('h5.modal-title').text("Khôi phục mật khẩu thành công");
-            $messageModal.modal('show');
-            $recoverPasswordModal.modal('hide');
-
-            document.forgetPasswordForm.reset();
-            document.verificationForm.reset();
-            document.recoverPasswordForm.reset();
-        }
+    $('#loginBtn').on('click', (e) => {
+        showLoading();
     })
 })();
