@@ -3219,11 +3219,12 @@ div#testimonials h4.m-title {
 }
 
 .sk-fading-circle .sk-circle {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     position: absolute;
     left: 48%;
     top: 35vh;
+    color: white;
 }
 
 .sk-fading-circle .sk-circle:before {
@@ -3232,7 +3233,7 @@ div#testimonials h4.m-title {
     margin: 0 auto;
     width: 15%;
     height: 15%;
-    background-color: #333;
+    background-color: white;
     border-radius: 100%;
     -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
     animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;

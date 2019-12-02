@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 15;
+const constant = require('../Utils/constant');
 
 const loginPage = (req, res) => {
     res.render('login', {
@@ -33,11 +33,12 @@ const signup =  async (req, res) => {
             error_message: "Tên đăng nhập đã tồn tại !!!"
         });
     } else {
-        bcrypt.hash(req.body.password, SALT_ROUNDS, (err,   hash) => {
+        bcrypt.hash(req.body.password, constant.SALT_ROUNDS, (err,   hash) => {
             const newUser = new User({
                 username: req.body.username,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                type: constant.type["customer"]
             });
             newUser.save((err) => {
                 if (err){
