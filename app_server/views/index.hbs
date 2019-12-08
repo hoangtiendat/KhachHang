@@ -23,7 +23,7 @@
                                           <div class="men-cart-pro">
                                               <div class="inner-men-cart-pro">
                                                   <form action="/item_detail" method="get">
-                                                      <input type="hidden" name="id" value="{{id}}"/>
+                                                      <input type="hidden" name="productId" value="{{productId}}"/>
                                                       <a href="#" onclick="this.parentNode.submit(); return false;" class="link-product-add-cart">Xem nhanh</a>
                                                   </form>
                                               </div>
@@ -35,12 +35,12 @@
                                       <div class="item-info-product text-center border-top mt-4">
                                           <h4 class="pt-1">
                                               <form action="/item_detail" method="get" style="">
-                                                  <input type="hidden" name="id" value="{{id}}"/>
+                                                  <input type="hidden" name="productId" value="{{productId}}"/>
                                                   <a href="#" onclick="this.parentNode.submit(); return false;">{{name}}</a>
                                               </form>
                                           </h4>
                                           <div class="info-product-price my-2">
-                                              <span class="item_price">{{discount}}</span>
+                                              <span class="item_price">{{discount}} VNĐ</span>
                                               <del>{{price}}</del>
                                           </div>
                                           <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
