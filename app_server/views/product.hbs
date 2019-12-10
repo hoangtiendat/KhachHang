@@ -5,6 +5,16 @@
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
             {{title}}
         </h3>
+        
+        <ul class="navbar-nav ml-auto text-center mr-xl-5">
+            <li class="nav-item">
+                <a href="{{url}}?filter=name">Name</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{url}}?filter=price">Price</a>
+            </li>
+        </ul>
+       
         <!-- //tittle heading -->
         <div class="row">
             <!-- product left -->
@@ -68,6 +78,28 @@
                         </div>
                     </div>
                     <!-- //template section -->
+                    
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        {{#paginate pagination type="first"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">First</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="previous"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="${url}?p={{n}}">Prev</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="middle" limit="7"}}
+                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">{{n}}</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="next"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">Next</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="last"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">Last</a></li>
+                        {{/paginate}}
+                      </ul>
+                    </nav>
+                   
+
                 </div>
             </div>
             <!-- //product left -->

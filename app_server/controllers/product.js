@@ -2,38 +2,163 @@ const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
 const product = (req, res) => {
-    if(req.query.category === 'phone'){
-        Product.find({"category": "phone"}, function(err, products) {
-            res.render('product', { title: 'Điện thoại', products: products, user: (req.isAuthenticated) ? req.user : null });
+    var perPage = 9;
+    var page = parseInt(req.query.p) || 1;
+    var originalUrl = req.originalUrl;
+    var category = req.query.category;
+    var source = req.query.source;
+    if(category === 'phone'){
+        Product.find({"category": "phone"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"category": "phone"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Điện thoại',
+                    url: '/product?category=phone',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.category === 'laptop') {
-        Product.find({"category": "laptop"}, function(err, products) {
-            res.render('product', { title: 'Laptop', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (category === 'laptop') {
+        Product.find({"category": "laptop"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"category": "laptop"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Laptop', 
+                    url: '/product?category=laptop',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.category === 'tablet') {
-        Product.find({"category": "tablet"}, function(err, products) {
-            res.render('product', { title: 'Tablet', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (category === 'tablet') {
+        Product.find({"category": "tablet"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"category": "tablet"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Tablet', 
+                    url: '/product?category=tablet',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.category === 'watch') {
-        Product.find({"category": "watch"}, function(err, products) {
-            res.render('product', { title: 'Đồng hồ', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (category === 'watch') {
+        Product.find({"category": "watch"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"category": "watch"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Watch',
+                    url: '/product?category=watch', 
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.source === 'apple') {
-        Product.find({"source": "apple"}, function(err, products) {
-            res.render('product', { title: 'Sản phẩm của Apple', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (source === 'apple') {
+        Product.find({"source": "apple"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"source": "apple"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Sản phẩm của Apple', 
+                    url: '/product?source=apple',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.source === 'samsung') {
-        Product.find({"source": "samsung"}, function(err, products) {
-            res.render('product', { title: 'Sản phẩm của Samsung', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (source === 'samsung') {
+        Product.find({"source": "samsung"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"source": "samsung"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Sản phẩm của Samsung', 
+                    url: '/product?source=samsung',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
-    } else if (req.query.source === 'other') {
-        Product.find({"source": "other"}, function(err, products) {
-            res.render('product', { title: 'Sản phẩm của các hãng khác', products: products, user: (req.isAuthenticated) ? req.user : null });
+    } else if (source === 'other') {
+        Product.find({"source": "other"})
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count({"source": "other"}).exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Sản phẩm của những hãng khác', 
+                    url: '/product?source=other',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
         });
     } else {
-        Product.find( function(err, products) {
-            res.render('product', { title: 'Tất cả sản phẩm', products: products, user: (req.isAuthenticated) ? req.user : null });
-        });
+        Product.find()
+        .select({})
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({
+            name: 'asc'
+        })
+        .exec(function(err, products) {
+            Product.count().exec(function(err, count) {
+                res.render('product', { 
+                    title: 'Tất cả sản phẩm', 
+                    url: '/product',
+                    user: (req.isAuthenticated) ? req.user : null, 
+                    products: products, 
+                    pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+                });
+            })
+        })
     }
 };
 
