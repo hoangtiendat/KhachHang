@@ -1,7 +1,4 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const bcrypt = require('bcrypt');
-const constant = require('../Utils/constant');
+const User = require('../models/user');
 
 const loginPage = (req, res) => {
     res.render('login', {
@@ -25,37 +22,30 @@ const signupPage = (req, res) => {
     });
 }
 const signup =  async (req, res) => {
-    let users = await User.find({username: req.body.username}).exec();
-    if (users.length > 0){
+    let user = await User.checkUsername(req.body.username);
+    if (user){
         res.render('signup', {
             title: 'Đăng ký',
             layout: false,
             error_message: "Tên đăng nhập đã tồn tại !!!"
         });
     } else {
-        bcrypt.hash(req.body.password, constant.SALT_ROUNDS, (err,   hash) => {
-            const newUser = new User({
-                username: req.body.username,
-                email: req.body.email,
-                password: hash,
-                type: constant.type["customer"]
+        const result = await User.addUser(req.body.username, req.body.email, req.body.password);
+        if (result){
+            //Success
+            res.render('login', {
+                title: 'Đăng nhập',
+                layout: false,
+                signup_success_message: "Đăng ký tài khoản thành công"
             });
-            newUser.save((err) => {
-                if (err){
-                    res.render('signup', {
-                        title: 'Đăng ký',
-                        layout: false,
-                        error_message: "Đăng ký thất bại !!!"
-                    });
-                } else {
-                    res.render('login', {
-                        title: 'Đăng nhập',
-                        layout: false,
-                        signup_success_message: "Đăng ký tài khoản thành công"
-                    });
-                }
-            })
-        })
+        } else {
+            //Fail
+            res.render('signup', {
+                title: 'Đăng ký',
+                layout: false,
+                error_message: "Đăng ký thất bại !!!"
+            });
+        }
     }
 }
 module.exports = {
@@ -64,4 +54,4 @@ module.exports = {
     logout,
     signupPage,
     signup
-}
+};

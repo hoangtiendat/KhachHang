@@ -1,13 +1,14 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = mongoose.model('User');
+const constant = require('../Utils/constant');
 
 passport.use(new LocalStrategy(
     {passReqToCallback : true},
     function(req, username, password, done) {
-        User.findOne({ username: username}, function(err, user) {
+        User.findOne({ username: username, type: {$eq: constant.type["customer"]}}, function(err, user) {
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
@@ -25,11 +26,11 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user.userId)
 })
 
 passport.deserializeUser(function(id, done) {
-    User.findOne({id: id}, function(err, user) {
+    User.findOne({userId: id, type: {$eq: constant.type["customer"]}}, function(err, user) {
         done(err, user);
     });
 });
