@@ -24,15 +24,22 @@ router.post('/login', function(req, res, next){
 });
 
 /* GET Login page. */
-router.get('/signup', accountCtrl.signupPage);
+router
+.get('/signup', accountCtrl.signupPage);
 router.post('/signup', accountCtrl.signup);
 
 /* GET Home page. */
 router.get('/logout', accountCtrl.logout);
 
 /* GET all Products page. */
+router
+	.route('/category/:category')
+	.get(productCtrl.product);
+
+router.get('/source/:source', productCtrl.product);
+
 router.get('/product', productCtrl.product);
-router.post('/product', productCtrl.product);
+router.post('/product/', productCtrl.product);
 
 /* GET item Detail page. */
 router.get('/item_detail', productCtrl.productDetail);

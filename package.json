@@ -14,6 +14,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "handlebars-paginate": "^0.1.0",
+    "handlebars.numeral": "^0.2.0",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "mongodb": "^3.3.3",

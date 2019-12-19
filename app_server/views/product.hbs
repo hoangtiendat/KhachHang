@@ -5,15 +5,66 @@
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
             {{title}}
         </h3>
-        
-        <ul class="navbar-nav ml-auto text-center mr-xl-5">
-            <li class="nav-item">
-                <a href="{{url}}?filter=name">Name</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{url}}?filter=price">Price</a>
-            </li>
-        </ul>
+        <form name="filterForm" action="/product" method="post">
+        <div class="row">
+            {{json}}
+            <div class="col-md-3">
+                <label for="categoryType">
+                  Loại sản phẩm <span style="color: red">*</span>
+                </label>
+                <select class="form-control" id="categoryType" name="categoryType">
+                  <option value="">Tất cả</option>
+                  {{#each categories}}
+                    <option value="{{categoryId}}">{{categoryName}}</option>
+                  {{/each}}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="sourceType">
+                  Hãng sản xuất <span style="color: red">*</span>
+                </label>
+                <select class="form-control" id="sourceType" name="sourceType">
+                  <option value="">Tất cả</option>
+                  {{#each brands}}
+                    <option value="{{brandId}}">{{name}}</option>
+                  {{/each}}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="priceType">
+                  Mức giá <span style="color: red">*</span>
+                </label>
+                <select class="form-control" id="priceType" name="priceType">
+                  <option value="">Tất cả</option>
+                  <option value="apple">Dưới 3 triệu</option>
+                  <option value="samsung">Từ 3 - 7 triệu</option>
+                  <option value="other">Từ 7 - 10 triệu</option>
+                  <option value="apple">Trên 10 triệu</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="right-w3l">
+                    <input id="filterBtn" type="submit" class="form-control" value=" Submit ">
+                </div>
+            </div>
+            
+        </div>
+        </form>
+        <div class="row">
+            <div class="col-lg-8 header-right mt-lg-0 mt-2">
+              <ul>
+                  <li class="text-center">
+                      <p>Sắp xếp theo: </p>
+                  </li>
+                  <li class="text-center border-right">
+                      <p><a href="?sort=name">Tên</a></p>
+                  </li>
+                  <li class="text-center border-right">
+                      <p><a href="?sort=price">Giá</a></p>
+                  </li>
+              </ul>
+            </div>
+        </div>
        
         <!-- //tittle heading -->
         <div class="row">
@@ -30,7 +81,7 @@
                         <div class="col-md-4 product-men mt-5">
                               <div class="men-pro-item simpleCart_shelfItem">
                                   <div class="men-thumb-item text-center">
-                                      <img src="{{urlImage}}" alt="">
+                                      <img src="../{{urlImage}}" alt="">
                                       <div class="men-cart-pro">
                                           <div class="inner-men-cart-pro">
                                               <form action="/item_detail" method="get">
@@ -50,10 +101,13 @@
                                               <input type="hidden" name="productId" value="{{productId}}"/>
                                               <a href="#" onclick="this.parentNode.submit(); return false;">{{name}}</a>
                                           </form>
+                                            
+                                            <p> {{category.categoryName}} </p>
+                                            <p> {{store.name}}</p>
                                       </h4>
                                       <div class="info-product-price my-2">
-                                          <span class="item_price">{{discount}} VNĐ</span>
-                                          <del>{{price}}</del>
+                                          <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
+                                          <del>{{number price}}</del>
                                       </div>
                                       <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                             <form action="#" method="post">
@@ -85,16 +139,16 @@
                           <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">First</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="previous"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="${url}?p={{n}}">Prev</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Prev</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="middle" limit="7"}}
-                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">{{n}}</a></li>
+                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="?p={{n}}">{{n}}</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="next"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">Next</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Next</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="last"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="{{url}}?p={{n}}">Last</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Last</a></li>
                         {{/paginate}}
                       </ul>
                     </nav>
@@ -272,7 +326,7 @@
                             <div class="scroll">
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-2 col-3 left-mar">
-                                        <img src="images/k1.jpg" alt="" class="img-fluid">
+                                        <img src="../images/k1.jpg" alt="" class="img-fluid">
                                     </div>
                                     <div class="col-lg-9 col-sm-10 col-9 w3_mvd">
                                         <a href="">Samsung Galaxy On7 Prime (Gold, 4GB RAM + 64GB Memory)</a>
@@ -281,7 +335,7 @@
                                 </div>
                                 <div class="row my-4">
                                     <div class="col-lg-3 col-sm-2 col-3 left-mar">
-                                        <img src="images/k2.jpg" alt="" class="img-fluid">
+                                        <img src="../images/k2.jpg" alt="" class="img-fluid">
                                     </div>
                                     <div class="col-lg-9 col-sm-10 col-9 w3_mvd">
                                         <a href="">Haier 195 L 4 Star Direct-Cool Single Door Refrigerator</a>
@@ -290,7 +344,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-2 col-3 left-mar">
-                                        <img src="images/k3.jpg" alt="" class="img-fluid">
+                                        <img src="../images/k3.jpg" alt="" class="img-fluid">
                                     </div>
                                     <div class="col-lg-9 col-sm-10 col-9 w3_mvd">
                                         <a href="">Ambrane 13000 mAh Power Bank (P-1310 Premium)</a>

@@ -45,6 +45,23 @@ app.use(function(req, res, next) {
 var hbs = require('hbs');
 var paginate = require('handlebars-paginate');
 hbs.registerHelper('paginate', paginate);
+
+var NumeralHelper = require("handlebars.numeral");
+
+NumeralHelper.registerHelpers(hbs);
+
+hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+        
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
