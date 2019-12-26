@@ -9,8 +9,22 @@ const product = async (req, res) => {
     var perPage = 6;
     var page = parseInt(req.query.p) || 1;
     var originalUrl = req.originalUrl;
-    var category = req.query.category;
-    var source = req.query.source;
+    localStorage.setItem('myFirstKey', 'myFirstValue');
+    if(req.body.categoryType){
+        localStorage.setItem('category', req.body.categoryType);
+    } else {
+        localStorage.setItem('category', '');
+    }
+    if(req.body.storeType){
+        localStorage.setItem('store', req.body.storeType);
+    } else {
+        localStorage.setItem('store', '');
+    }
+    if(req.body.priceType){
+        localStorage.setItem('price', req.body.priceType);
+    } else {
+        localStorage.setItem('price', '');
+    }
 
     var json = '{';
     if(req.body.categoryType && req.body.categoryType != ''){
@@ -18,20 +32,43 @@ const product = async (req, res) => {
     } else if(req.params.category){
         json += '"categoryId":' + req.params.category+'';
     }
-    if (json != '{' && req.body.sourceType && req.body.sourceType != ''){
-        json += ', '
+    if (json != '{' && req.body.storeType && req.body.storeType != ''){
+        json += ', ';
     }
-    if(req.body.sourceType && req.body.sourceType != ''){
-        json += '"storeId":' + req.body.sourceType+'';
-    } else if(req.params.source){
-        json += '"storeId":' + req.params.source+'';
+    if(req.body.storeType && req.body.storeType != ''){
+        json += '"storeId":' + req.body.storeType+'';
+    } else if(req.params.store){
+        json += '"storeId":' + req.params.store+'';
     }
+
+    var price = '';
+    if(req.body.priceType && req.body.priceType != ''){
+        if (req.body.priceType == '3000000') {
+            price = '{ "$lte" : 3000000 }';
+        } else if (req.body.priceType == '7000000') {
+            price = '{ "$gt" : 3000000, "$lte" : 7000000}';
+        } else if (req.body.priceType == '10000000') {
+            price = '{ "$gt" : 7000000, "$lte" : 10000000}';
+        } else {
+            price = '{ "$gt" : 10000000 }';
+        }
+    }
+
+    if(price != ''){
+        if (json != '{'){
+            json += ', ';
+        }
+        json += '"price":' + price;
+    }
+
     json += '}';
+
     const obj = JSON.parse(json);
     var sort = '{}';
     if (req.query.sort){
         sort = '{"' + req.query.sort + '":"asc"}';
     }
+
     const sortJson = JSON.parse(sort);
     const products = await Product.getProduct(obj, sortJson, perPage, page);
     const count = await Product.getCount(obj);
@@ -42,8 +79,10 @@ const product = async (req, res) => {
         user: (req.isAuthenticated) ? req.user : null, 
         categories: categories,
         brands: brands,
-        json: json,
-        products: products, 
+        products: products,
+        category: localStorage.getItem('category'),
+        store: localStorage.getItem('store'),
+        price: localStorage.getItem('price'),
         pagination: { page: page, pageCount: Math.ceil(count / perPage)}
     });
 };
@@ -69,10 +108,10 @@ const product = async (req, res) => {
 //     res.render('product', { title: title, products: products, user: (req.isAuthenticated) ? req.user : null });
 // };
 
-// const productSource = async (req, res) => {
-//     const products = await Product.getProductBySource(req.query.source);
+// const productstore = async (req, res) => {
+//     const products = await Product.getProductBystore(req.query.store);
 //     let title = "";
-//     switch(req.query.source){
+//     switch(req.query.store){
 //         case "apple":
 //             title = "Sản phẩm của Apple";
 //             break;
@@ -99,7 +138,7 @@ const productDetail = async (req, res) => {
         price: product.price,
         urlImage: product.urlImage,
         category: product.category,
-        source: product.source,
+        store: product.store,
         user: (req.isAuthenticated) ? req.user : null
     });
 };
@@ -107,6 +146,6 @@ const productDetail = async (req, res) => {
 module.exports = {
     product,
     // productCategory,
-    // productSource,
+    // productstore,
     productDetail
 };

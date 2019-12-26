@@ -7,7 +7,7 @@
         </h3>
         <form name="filterForm" action="/product" method="post">
         <div class="row">
-            {{json}}
+        {{store}}
             <div class="col-md-3">
                 <label for="categoryType">
                   Loại sản phẩm <span style="color: red">*</span>
@@ -20,10 +20,10 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label for="sourceType">
+                <label for="storeType">
                   Hãng sản xuất <span style="color: red">*</span>
                 </label>
-                <select class="form-control" id="sourceType" name="sourceType">
+                <select class="form-control" id="storeType" name="storeType">
                   <option value="">Tất cả</option>
                   {{#each brands}}
                     <option value="{{brandId}}">{{name}}</option>
@@ -36,10 +36,10 @@
                 </label>
                 <select class="form-control" id="priceType" name="priceType">
                   <option value="">Tất cả</option>
-                  <option value="apple">Dưới 3 triệu</option>
-                  <option value="samsung">Từ 3 - 7 triệu</option>
-                  <option value="other">Từ 7 - 10 triệu</option>
-                  <option value="apple">Trên 10 triệu</option>
+                  <option value="3000000">Dưới 3 triệu</option>
+                  <option value="7000000">Từ 3 - 7 triệu</option>
+                  <option value="10000000">Từ 7 - 10 triệu</option>
+                  <option value="10000001">Trên 10 triệu</option>
                 </select>
             </div>
             <div class="col-md-2">
@@ -81,7 +81,7 @@
                         <div class="col-md-4 product-men mt-5">
                               <div class="men-pro-item simpleCart_shelfItem">
                                   <div class="men-thumb-item text-center">
-                                      <img src="../{{urlImage}}" alt="">
+                                      <img src="{{urlImage}}" alt="">
                                       <div class="men-cart-pro">
                                           <div class="inner-men-cart-pro">
                                               <form action="/item_detail" method="get">
@@ -361,5 +361,10 @@
         </div>
     </div>
 </div>
+<script>
+  document.getElementById('categoryType').value = {{category}};
+  document.getElementById('storeType').value = {{store}};
+  document.getElementById('priceType').value = {{price}};
+</script>
 
 <!-- //top products -->
