@@ -7,14 +7,16 @@ module.exports = {
     checkUsername(username){
         return User.findOne({username: username}).exec();
     },
-    addUser(username, email, password){
+    addUser(username, email, password, secretToken){
         return new Promise((resolve, reject) => {
             bcrypt.hash(password, constant.SALT_ROUNDS, (err,   hash) => {
                 const newUser = new User({
                     username: username,
                     email: email,
                     password: hash,
-                    type: constant.type["customer"]
+                    type: constant.type["customer"],
+                    isActive: false,
+                    secretToken: secretToken
                 });
                 try {
                     newUser.save(function (err) {

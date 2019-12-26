@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
+const flash = require('connect-flash');
 const expressSession = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(expressSession({
   secret: 'keyboard cat',
+  cookie: { maxAge: 60000 },
   saveUninitialized: true,
   resave: true,
 }));
@@ -36,9 +38,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(flash());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 app.use(function(req, res, next) {
+  res.locals.success_messages = req.flash('success');
+  res.locals.error_messages = req.flash('error');
+  res.locals.isAuthenticated = req.user ? true : false;
   if (req.headers['content-type'] === 'application/json;') {
     req.headers['content-type'] = 'application/json';
   }

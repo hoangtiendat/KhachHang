@@ -38,6 +38,9 @@ router
 
 router.get('/source/:source', productCtrl.product);
 
+router.get('/verify', accountCtrl.verify);
+router.post('/verify/', accountCtrl.verify);
+
 router.get('/product', productCtrl.product);
 router.post('/product/', productCtrl.product);
 
