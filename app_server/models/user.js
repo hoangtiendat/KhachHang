@@ -7,6 +7,12 @@ module.exports = {
     checkUsername(username){
         return User.findOne({username: username}).exec();
     },
+    findToken(secretToken){
+        return User.findOne({secretToken: secretToken}).exec();
+    },
+    findEmail(email){
+        return User.findOne({email: email}).exec();
+    },
     addUser(username, email, password, secretToken){
         return new Promise((resolve, reject) => {
             bcrypt.hash(password, constant.SALT_ROUNDS, (err,   hash) => {
@@ -31,5 +37,20 @@ module.exports = {
                 }
             })
         })
+    },
+    getUser(userId){
+        return User.findOne({userId: userId}).exec();
+    },
+    setUserInfo(userId, info){
+        return User.findOneAndUpdate({userId: userId}, {
+            firstName: info.firstName || "",
+            lastName: info.lastName || "",
+            gender: info.gender || "",
+            email: info.email || "",
+            birthDate: info.birthDate || "",
+            phone: info.phone || "",
+            address: info.address || "",
+            city: info.city || "",
+        }).exec();
     }
 };

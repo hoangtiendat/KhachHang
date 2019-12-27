@@ -32,10 +32,11 @@
                     </div>
                     <div class="modal-body">
                         <form name="signupForm" action="/signup" method="post">
-                            {{#if error_message}}
-                                <div id="error_message_alert" class="alert alert-danger alert-message" role="alert">
-                                    {{error_message}}
-                                </div>
+                            {{#if success_messages }}
+                              <div class="alert alert-success">{{success_messages}}</div>
+                            {{/if}}
+                            {{#if error_messages }}
+                              <div class="alert alert-danger">{{error_messages}}</div>
                             {{/if}}
                             <div class="form-group">
                                 <label class="col-form-label">Tên tài khoản</label>

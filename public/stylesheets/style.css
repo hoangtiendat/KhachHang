@@ -3348,3 +3348,16 @@ div#testimonials h4.m-title {
     40% { opacity: 1; }
 }
 /* //Loading circle */
+
+.my-btn-link {
+    padding: 0 !important;
+}
+.my-btn-link a {
+    color: #ffffff;
+    padding: 8px 20px;
+    display: block;
+}
+.my-btn-link a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}

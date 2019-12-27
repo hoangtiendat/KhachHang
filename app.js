@@ -21,6 +21,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 
+const hbs = require('./my_handlebars');
+
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({
     extended: true
@@ -40,38 +42,26 @@ app.use(passport.session());
 
 app.use(flash());
 
+app.use(function(req, res, next) {
+  //Authentication
+  if (req.isAuthenticated()){
+    res.locals.user = req.user;
+    res.locals.authenticated = ! req.user.anonymous;
+  }
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use(function(req, res, next) {
-  res.locals.success_messages = req.flash('success');
-  res.locals.error_messages = req.flash('error');
-  res.locals.isAuthenticated = req.user ? true : false;
   if (req.headers['content-type'] === 'application/json;') {
     req.headers['content-type'] = 'application/json';
   }
   next();
 });
-var hbs = require('hbs');
-var paginate = require('handlebars-paginate');
-hbs.registerHelper('paginate', paginate);
 
-var NumeralHelper = require("handlebars.numeral");
 
-NumeralHelper.registerHelpers(hbs);
-
-hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
-    lvalue = parseFloat(lvalue);
-    rvalue = parseFloat(rvalue);
-        
-    return {
-        "+": lvalue + rvalue,
-        "-": lvalue - rvalue,
-        "*": lvalue * rvalue,
-        "/": lvalue / rvalue,
-        "%": lvalue % rvalue
-    }[operator];
-});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

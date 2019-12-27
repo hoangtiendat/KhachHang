@@ -106,7 +106,6 @@ mongoose.model('Product', productSchema);
 //Bill
 const billSchema = new mongoose.Schema({
     buyerId: Number,
-    productId: Number,
     receiverName: String,
     phone: String,
     email: String,
@@ -151,10 +150,10 @@ billDetailSchema.virtual('bill',{
     foreignField: 'billId',
     justOne: true
 });
-billDetailSchema.virtual('product',{
-    ref: 'Product',
-    localField: 'productId',
-    foreignField: 'productId',
+billSchema.virtual('billDetail',{
+    ref: 'BillDetail',
+    localField: 'billId',
+    foreignField: 'billId',
     justOne: true
 });
 billDetailSchema.index({coords: '2dsphere'});
@@ -185,3 +184,13 @@ commentSchema.virtual('product',{
 commentSchema.index({coords: '2dsphere'});
 commentSchema.plugin(AutoIncrement, {inc_field: 'commentId'});
 mongoose.model('Comment', commentSchema);
+
+//Param
+const paramSchema = new mongoose.Schema({
+    paramId: Number,
+    category: String,
+    brands: String,
+    city: String
+});
+paramSchema.index({coords: '2dsphere'});
+mongoose.model('Param', paramSchema);

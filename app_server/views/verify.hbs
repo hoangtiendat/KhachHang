@@ -31,7 +31,13 @@
                         <h5 class="modal-title text-center">Xác nhận Email</h5>
                     </div>
                     <div class="modal-body">
-                        <form class="form-signin" action="/users/verify" method="POST">
+                        <form class="form-signin" action="/verify" method="POST">
+                        	{{#if success_messages }}
+                              <div class="alert alert-success">{{success_messages}}</div>
+                            {{/if}}
+                            {{#if error_messages }}
+                              <div class="alert alert-danger">{{error_messages}}</div>
+                            {{/if}}
 						  <label for="secretToken" class="sr-only">Secret Token</label>
 						  <input type="secretToken" id="secretToken" name="secretToken" class="form-control" placeholder="Nhập Token" required autofocus>
 

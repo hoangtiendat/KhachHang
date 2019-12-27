@@ -4,6 +4,7 @@ const passport = require('passport');
 const ctrlMain = require('../controllers/main');
 const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
+const userCtrl = require('../controllers/user');
 require('./passport');
 
 
@@ -15,7 +16,10 @@ router.get('/login', accountCtrl.loginPage);
 router.post('/login', function(req, res, next){
     passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
-        if (!user) { return res.redirect('/login') }
+        if (!user) { 
+            req.flash('error', 'No user found.');
+            res.redirect('/login');
+            return; }
         req.logIn(user, (err) => {
             if (err) { return next(err); }
             return res.redirect('/');
@@ -38,11 +42,20 @@ router
 
 router.get('/source/:source', productCtrl.product);
 
-router.get('/verify', accountCtrl.verify);
-router.post('/verify/', accountCtrl.verify);
+router.get('/verify', accountCtrl.verifyPage);
+router.post('/verify', accountCtrl.verify);
+
+router.get('/enterEmail', accountCtrl.emailPage);
+router.post('/enterEmail', accountCtrl.email);
+
+router.get('/pwdEmail', accountCtrl.pwdEmailPage);
+router.post('/pwdEmail', accountCtrl.pwdEmail);
+
+router.get('/changePwd', accountCtrl.changePwdPage);
+router.post('/changePwd', accountCtrl.changePwd);
 
 router.get('/product', productCtrl.product);
-router.post('/product/', productCtrl.product);
+router.post('/product', productCtrl.product);
 
 /* GET item Detail page. */
 router.get('/item_detail', productCtrl.productDetail);
@@ -57,9 +70,11 @@ router.get('/search', ctrlMain.search);
 
 router.post('/search', ctrlMain.search);
 
-router.get('/profile', ctrlMain.profile);
+router.get('/profile', userCtrl.profile)
 
-router.post('/profile', ctrlMain.profile);
+router.get('/edit_profile', userCtrl.editProfilePage);
+
+router.post('/edit_profile', userCtrl.editProfile);
 
 router.get('/contact', ctrlMain.contact);
 

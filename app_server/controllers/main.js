@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 const passport = require('passport');
+const User = require('../models/user');
 
 const home = (req, res) => {
 	Product.find({"new": true}, function(err, products) {
@@ -33,12 +34,49 @@ const search = (req, res) => {
 	});
 };
 
-const profile = (req, res) => {
-	res.render('profile', {
-		title: 'Hồ sơ',
-		user: (req.isAuthenticated) ? req.user : null
-	});
-};
+// const profilePage = (req, res) => {
+// 	res.render('profile', {
+// 		title: 'Hồ sơ',
+// 		user: (req.isAuthenticated) ? req.user : null
+// 	});
+// };
+// const profile = async (req, res) => {
+//     if (!req.isAuthenticated()){
+//         res.redirect('/login');
+//     } else {
+//         try {
+//             const info = {
+//                 firstName: req.body.firstName || "",
+//                 lastName: req.body.lastName || "",
+//                 gender: req.body.gender || "",
+//                 email: req.body.email || "",
+//                 birthDate: req.body.birthDate || "",
+//                 phone: req.body.phone || "",
+//                 address: req.body.address || "",
+//                 city: req.body.city || "",
+//             };
+//             const user = await User.setUserInfo(req.user.userId, info);
+//             if (user) {
+//                 res.redirect('/profile');
+//             } else {
+//                 const user = await User.getUser(req.user.userId);
+//                 const cities = await Param.getAllCity();
+//                 res.render('edit_profile', {
+//                     title: 'Hồ sơ',
+//                     user: Object.assign({}, user._doc, {
+//                         birthDate: (user.birthDate)? user.birthDate.toString() : "",
+//                         createdDate: user.createdDate.toString(),
+//                         error_message: "Cập nhật thông tin thất bại"
+//                     }),
+//                     cities: cities
+//                 });
+//             }
+
+//         } catch(err) {
+//             console.log('err', err);
+//         }
+//     }
+// };
 
 const contact = (req, res) => {
 	res.render('contact', {
@@ -87,7 +125,6 @@ module.exports = {
 	checkout,
 	history,
 	search,
-	profile,
 	contact,
 	about,
 	privacy,
