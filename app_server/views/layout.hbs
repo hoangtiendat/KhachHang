@@ -223,7 +223,7 @@
                           </div>
                           <!-- //search -->
                           <!-- cart details -->
-                          <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+                          <!-- <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
                               <div class="wthreecartaits wthreecartaits2 cart cart box_1">
                                   <form action="#" method="post" class="last">
                                       <input type="hidden" name="cmd" value="_cart">
@@ -233,7 +233,41 @@
                                       </button>
                                   </form>
                               </div>
-                          </div>
+                          </div> -->
+                          <div class="dropdown">
+                              <a class="dropdown-toggle" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
+                                {{# if session.cart.totalItems }}
+                                    <span>({{session.cart.totalItems}})</span>
+                                {{/if}}
+                              </a>
+                                {{# if session.cart.totalItems }}
+                                <div class="dropdown-menu">
+                                    <div class="cart">
+                                        {{# each session.cart.items }}
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                {{ this.item.title }}
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                <span class="badge">{{ this.quantity }}</span>
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                {{ this.price }} VNĐ
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                        <div class="row">
+                                            <div class="text-right">
+                                                <div class="totalPrice">Total: {{ session.cart.totalPrice }} VNĐ</div>
+                                                <a href="/cart/" class="btn btn-success">Procceed</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            <!-- </div> -->
+                        </div>
                           <!-- //cart details -->
                       </div>
                   </div>
@@ -274,7 +308,7 @@
                           </li>
                           <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Đồ điện tử
+                                  Sản phẩm
                               </a>
                               <div class="dropdown-menu">
                                   <div class="agile_inner_drop_nav_info p-4">
@@ -765,7 +799,18 @@
 
       <!-- Service js-->
       <script type="text/javascript" src="/javascripts/service/loading.js"></script>
+      <script type="text/javascript">
+          $('#product-pagination li a').each(function (key, value) {
+              const href = $(this).attr("href");
+              const originalUrl = '{{{originalUrl}}}'
+              if (originalUrl.includes("?")){
+                  $(this).attr("href", originalUrl + href);
+              } else {
+                  $(this).attr("href",  originalUrl + "?" + href);
+              }
 
+          })
+      </script>
       <!-- //Service js -->
       <!-- //js-files -->
       <!-- //template -->

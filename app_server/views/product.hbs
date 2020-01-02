@@ -5,7 +5,7 @@
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
             {{title}}
         </h3>
-        <form name="filterForm" action="/product" method="post">
+        <form name="filterForm" action="/product" method="get">
         <div class="row">
             <div class="col-md-3">
                 <label for="categoryType">
@@ -107,22 +107,7 @@
                                           <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
                                           <del>{{number price}}</del>
                                       </div>
-                                      <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="{{name}}" />
-                                                    <input type="hidden" name="amount" value="{{number price}}" />
-                                                    <input type="hidden" name="discount_amount" value="{{number (math price "-" discount)}}" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                      <a href="/add/{{productId}}" class="btn btn-default pull-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</a>
                                   </div>
                               </div>
                           </div>
@@ -130,23 +115,22 @@
                         </div>
                     </div>
                     <!-- //template section -->
-                    
-                    <nav aria-label="Page navigation example">
+                    <nav id="product-pagination" aria-label="Page navigation example">
                       <ul class="pagination">
                         {{#paginate pagination type="first"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">First</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="previous"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Prev</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Prev</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="middle" limit="7"}}
-                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="?p={{n}}">{{n}}</a></li>
+                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="next"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Next</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
                         {{/paginate}}
                         {{#paginate pagination type="last"}}
-                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Last</a></li>
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
                         {{/paginate}}
                       </ul>
                     </nav>
@@ -359,5 +343,4 @@
         </div>
     </div>
 </div>
-
 <!-- //top products -->

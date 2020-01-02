@@ -3398,3 +3398,32 @@ div#testimonials h4.m-title {
 .badges-bar .badge:nth-child(2) {
     margin-left: 3px;
 }
+
+a {
+  color: #00B7FF;
+}
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+.dropdown-menu .cart {
+  min-width: 250px;
+  padding: 15px 25px 0;
+}
+
+.dropdown-menu .cart .row > div {
+  padding: 0 0 10px 0;
+}
+
+.dropdown-menu .cart .totalPrice{
+  font-size: 120%;
+  font-weight: bold;
+  padding: 15px 0;
+}
+
+.cart.page {
+  padding: 25px 0;
+}

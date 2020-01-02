@@ -7,7 +7,7 @@ const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
 require('./passport');
 
-
+var Cart = require('../models/cart');
 /* GET Home page. */
 router.get('/', ctrlMain.home);
 
@@ -87,5 +87,31 @@ router.get('/terms', ctrlMain.terms);
 router.get('/help', ctrlMain.help);
 
 router.get('/faqs', ctrlMain.faqs);
+
+var products = require('../models/product');
+router.get('/add/:id', productCtrl.cart);
+
+router.get('/cart', function(req, res, next) {
+  if (!req.session.cart) {
+    return res.render('cart', {
+      // products: null
+    });
+  }
+  var cart = new Cart(req.session.cart);
+  res.render('cart', {
+    title: 'NodeJS Shopping Cart',
+    products: cart.getItems(),
+    totalPrice: cart.totalPrice
+  });
+});
+
+router.get('/remove/:id', function(req, res, next) {
+  var productId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.remove(productId);
+  req.session.cart = cart;
+  res.redirect('/cart');
+});
 
 module.exports = router;

@@ -4,54 +4,58 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 const Brand = require('../models/brand');
 const constant = require('../Utils/constant');
+var Cart = require('../models/cart');
 
 const product = async (req, res) => {
     var perPage = 6;
     var page = parseInt(req.query.p) || 1;
     var originalUrl = req.originalUrl;
     localStorage.setItem('myFirstKey', 'myFirstValue');
-    if(req.body.categoryType){
-        localStorage.setItem('category', req.body.categoryType || req.params.category);
+    if(req.query.categoryType){
+        localStorage.setItem('category', req.query.categoryType || req.params.category);
     } else if (req.params.category) {
         localStorage.setItem('category', req.params.category);
     } else {
-        localStorage.setItem('category', '');
+        localStorage.setItem('category', "")
     }
-    if(req.body.brandType){
-        localStorage.setItem('brand', req.body.brandType);
+
+    if(req.query.brandType){
+        localStorage.setItem('brand', req.query.brandType);
     } else if (req.params.brandId) {
         localStorage.setItem('brand', req.params.brandId);
     } else {
-        localStorage.setItem('brand', '');
-    }
-    if(req.body.priceType){
-        localStorage.setItem('price', req.body.priceType);
-    } else {
-        localStorage.setItem('price', '');
+        localStorage.setItem('brand', "")
     }
 
-    var json = '{';
-    if(req.body.categoryType && req.body.categoryType !== ''){
-        json += '"categoryId": ' + req.body.categoryType+'';
-    } else if(req.params.category){
-        json += '"categoryId": ' + req.params.category+'';
+    if(req.query.priceType){
+        localStorage.setItem('price', req.query.priceType);
+    } else {
+        localStorage.setItem('price', "")
     }
-    if (json !== '{' && req.body.brandType && req.body.brandType !== ''){
+
+    const localCategory = localStorage.getItem('category');
+    const localBrand = localStorage.getItem('brand');
+    const localPrice = localStorage.getItem('price');
+
+    var json = '{';
+    if(localCategory && localCategory !== ''){
+        json += '"categoryId": ' + localCategory +'';
+    }
+
+    if (json !== '{' && localBrand && localBrand !== ''){
         json += ', ';
     }
-    if(req.body.brandType && req.body.brandType !== ''){
-        json += '"storeId": ' + req.body.brandType+'';
-    } else if(req.params.brandId){
-        json += '"storeId": ' + req.params.brandId+'';
+    if(localBrand && localBrand !== ''){
+        json += '"storeId": ' + localBrand +'';
     }
 
     var price = '';
-    if(req.body.priceType && req.body.priceType !== ''){
-        if (req.body.priceType === '3000000') {
+    if(localPrice && localPrice !== ''){
+        if (localPrice === '3000000') {
             price = '{ "$lte" : 3000000 }';
-        } else if (req.body.priceType === '7000000') {
+        } else if (localPrice === '7000000') {
             price = '{ "$gt" : 3000000, "$lte" : 7000000}';
-        } else if (req.body.priceType === '10000000') {
+        } else if (localPrice === '10000000') {
             price = '{ "$gt" : 7000000, "$lte" : 10000000}';
         } else {
             price = '{ "$gt" : "10000000" }';
@@ -66,7 +70,7 @@ const product = async (req, res) => {
     }
 
     json += '}';
-
+    console.log(json);
     const obj = JSON.parse(json);
     var sort = '{}';
     if (req.query.sort){
@@ -81,12 +85,12 @@ const product = async (req, res) => {
     const count = await Product.getCount(obj);
     res.render('product', { 
         title: 'Sản phẩm',
-        user: (req.isAuthenticated) ? req.user : null,
         products: products,
-        category: localStorage.getItem('category'),
-        brand: localStorage.getItem('brand'),
-        price: localStorage.getItem('price'),
-        pagination: { page: page, pageCount: Math.ceil(count / perPage)}
+        category: localCategory,
+        brand: localBrand,
+        price: localPrice,
+        pagination: { page: page, pageCount: Math.ceil(count / perPage)},
+        originalUrl: `/product?categoryType=${localCategory}&brandType=${localBrand}&localPrice=${localPrice}&sort=${req.query.sort || ""}`
     });
 };
 
@@ -133,7 +137,6 @@ const productDetail = async (req, res) => {
     const product = await Product.getProductById(req.params.productId);
     if (product){
         product.salePrice = parseInt(product.price) - parseInt(product.discount);
-        product.description = product.description;
         res.render('item_detail', {
             title: product  .name,
             product: product,
@@ -146,10 +149,21 @@ const productDetail = async (req, res) => {
         })
     }
 };
-
+const cart = async (req, res, next) => {
+  var productId = req.params.id;
+  console.log(productId);
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+  const product = await Product.getProductById(productId);
+  console.log(product);
+  cart.add(product, productId);
+  console.log(cart);
+  req.session.cart = cart;
+  res.redirect('/');
+};
 module.exports = {
     product,
     // productCategory,
     // productstore,
-    productDetail
+    productDetail,
+    cart
 };
