@@ -15,6 +15,7 @@
       </script>
       <!-- //Meta tag Keywords -->
 
+      <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
       <!-- Custom-Files -->
       <link href="/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
       <!-- Bootstrap css -->
@@ -96,19 +97,6 @@
           <div class="select-city">
               <h3>
                   <i class="fas fa-map-marker"></i> Chọn vị trí</h3>
-              <select class="list_of_cities">
-                  <optgroup label="Popular Cities">
-                      <option selected style="display:none;color:#eee;">Chọn thành phố</option>
-                      <option>TP Hồ Chí Minh</option>
-                      <option>Hà Nội</option>
-                      <option>Đà Nẵng</option>
-                  </optgroup>
-                  <optgroup label="Alabama">
-                      <option>TP Hồ Chí Minh</option>
-                      <option>Hà Nội</option>
-                      <option>Đà Nẵng</option>
-                  </optgroup>
-              </select>
               <div class="clearfix"></div>
           </div>
       </div>
@@ -291,28 +279,15 @@
                               <div class="dropdown-menu">
                                   <div class="agile_inner_drop_nav_info p-4">
                                       <h5 class="mb-3"><a href="/product">All</a></h5>
-                                      <div class="row">
-                                          <div class="col-sm-6 multi-gd-img">
-                                              <ul class="multi-column-dropdown">
-                                                  <li>
-                                                      <a href="/category/phone">Điện thoại</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="/category/tablet">Tablets</a>
-                                                  </li>
-                                              </ul>
+                                      {{#each categoryChunks}}
+                                          <div class="row mb-3">
+                                             {{#each this}}
+                                                 <div class="col-sm-3 multi-gd-img">
+                                                     <a href="/category/{{categoryId}}">{{categoryName}}</a>
+                                                 </div>
+                                             {{/each}}
                                           </div>
-                                          <div class="col-sm-6 multi-gd-img">
-                                              <ul class="multi-column-dropdown">
-                                                  <li>
-                                                      <a href="/category/laptop">Laptops</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="/category/watch">Đồng hồ</a>
-                                                  </li>
-                                              </ul>
-                                          </div>
-                                      </div>
+                                      {{/each}}
                                   </div>
                               </div>
                           </li>
@@ -323,21 +298,15 @@
                               <div class="dropdown-menu">
                                   <div class="agile_inner_drop_nav_info p-4">
                                       <h5 class="mb-3"><a href="/product">All</a></h5>
-                                      <div class="row">
-                                          <div class="col-sm-6 multi-gd-img">
-                                              <ul class="multi-column-dropdown">
-                                                  <li>
-                                                      <a href="/source/apple">Apple</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="/source/samsung">Samsung</a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="/source/other">Khác</a>
-                                                  </li>
-                                              </ul>
+                                      {{#each brandChunks}}
+                                          <div class="row mb-3">
+                                              {{#each this}}
+                                                  <div class="col-sm-3 multi-gd-img">
+                                                      <a href="/brand/{{brandId}}">{{name}}</a>
+                                                  </div>
+                                              {{/each}}
                                           </div>
-                                      </div>
+                                      {{/each}}
                                   </div>
                               </div>
                           </li>
@@ -354,87 +323,6 @@
       </div>
       <!-- //navigation -->
 
-      <!-- banner -->
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <!-- Indicators-->
-          <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-          </ol>
-          <div class="carousel-inner">
-              <div class="carousel-item item1 active">
-                  <div class="container">
-                      <div class="w3l-space-banner">
-                          <div class="carousel-caption p-lg-5 p-sm-4 p-3">
-                              <p>Ưu đãi giảm ngay
-                                  <span>50%</span></p>
-                              <h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">
-                                  <span>SIÊU</span>
-                                  GIẢM GIÁ
-                              </h3>
-                              <a class="button2" href="product">Mua ngay </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="carousel-item item2">
-                  <div class="container">
-                      <div class="w3l-space-banner">
-                          <div class="carousel-caption p-lg-5 p-sm-4 p-3">
-                              <p>Ưu đãi giảm ngay
-                                  <span>50%</span></p>
-                              <h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">
-                                  <span>SIÊU</span>
-                                  GIẢM GIÁ
-                              </h3>
-                              <a class="button2" href="product">Mua ngay </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="carousel-item item3">
-                  <div class="container">
-                      <div class="w3l-space-banner">
-                          <div class="carousel-caption p-lg-5 p-sm-4 p-3">
-                              <p>Ưu đãi giảm ngay
-                                  <span>50%</span></p>
-                              <h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">
-                                  <span>SIÊU</span>
-                                  GIẢM GIÁ
-                              </h3>
-                              <a class="button2" href="product">Mua ngay </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="carousel-item item4">
-                  <div class="container">
-                      <div class="w3l-space-banner">
-                          <div class="carousel-caption p-lg-5 p-sm-4 p-3">
-                              <p>Ưu đãi giảm ngay
-                                  <span>50%</span></p>
-                              <h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">
-                                  <span>SIÊU</span>
-                                  GIẢM GIÁ
-                              </h3>
-                              <a class="button2" href="product">Mua ngay </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Trước</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Sau</span>
-          </a>
-      </div>
-      <!-- //banner -->
       {{{body}}}
 
       <!-- middle section -->
@@ -705,7 +593,7 @@
 
       <!-- nav smooth scroll -->
       <script type="text/javascript">
-          $(document).ready(function () {
+          /*$(document).ready(function () {
               $(".dropdown").hover(
                       function () {
                           $('.dropdown-menu', this).stop(true, true).slideDown("fast");
@@ -716,8 +604,8 @@
                           $(this).toggleClass('open');
                       }
               );
-          });
-      </script type="text/javascript">
+          });*/
+      </script>
       <!-- //nav smooth scroll -->
 
       <!-- popup modal (for location)-->

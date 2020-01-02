@@ -40,7 +40,7 @@ router
 	.route('/category/:category')
 	.get(productCtrl.product);
 
-router.get('/source/:source', productCtrl.product);
+router.get('/brand/:brandId', productCtrl.product);
 
 router.get('/verify', accountCtrl.verifyPage);
 router.post('/verify', accountCtrl.verify);
@@ -58,7 +58,7 @@ router.get('/product', productCtrl.product);
 router.post('/product', productCtrl.product);
 
 /* GET item Detail page. */
-router.get('/item_detail', productCtrl.productDetail);
+router.get('/item_detail/:productId', productCtrl.productDetail);
 
 router.get('/checkout', ctrlMain.checkout);
 

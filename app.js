@@ -11,6 +11,9 @@ const expressSession = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
 require('./app_server/models/db');
+const Param = require('./app_server/models/params');
+const Brand = require('./app_server/models/brand');
+const constant = require('./app_server/Utils/constant');
 
 var indexRouter = require('./app_server/routers/index');
 var usersRouter = require('./app_server/routers/users');
@@ -42,12 +45,19 @@ app.use(passport.session());
 
 app.use(flash());
 
-app.use(function(req, res, next) {
+app.use(async function(req, res, next) {
   //Authentication
   if (req.isAuthenticated()){
     res.locals.user = req.user;
     res.locals.authenticated = ! req.user.anonymous;
   }
+  const categories = await Param.getAllCategory();
+  res.locals.categories = categories;
+  res.locals.categoryChunks = constant.splitToChunk(categories, 4);
+
+  const brands = await Brand.getBrands();
+  res.locals.brands = brands;
+  res.locals.brandChunks = constant.splitToChunk(brands, 4);
   next();
 });
 

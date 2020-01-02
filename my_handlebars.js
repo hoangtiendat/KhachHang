@@ -77,7 +77,12 @@ hbs.registerHelper("generatePagination", function(route, page, count) {
     return pageStr;
 });
 hbs.registerHelper("formatPrice", function(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + constant.currency;
+    hbs.registerHelper("formatPrice", function(price, isAppendCurrency = true) {
+        if (isAppendCurrency)
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + constant.currency;
+        else
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
 });
 hbs.registerHelper("select", function(value, options) {
     return options.fn(this)

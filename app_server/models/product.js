@@ -17,8 +17,18 @@ module.exports = {
     return Product.count(query).exec();
   },
   getProductById(id){
-    return Product.findOne({"productId": id}).exec();
+    return Product.findOne({"productId": id})
+        .populate('store')
+        .populate('category')
+        .exec();
   },
+  getAllProduct(query, sort){
+    return Product.find(query)
+        .populate('store')
+        .populate('category')
+        .sort(sort)
+        .exec();
+  }
   // getProductByCategory(category){
   //   return Product.find({"category": category}).exec();
   // },

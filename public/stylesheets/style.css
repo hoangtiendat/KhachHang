@@ -23,6 +23,7 @@ body a {
 }
 
 a {
+    color: #333333;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -162,7 +163,7 @@ p.dont-do a {
 .right-w3l input[type="submit"] {
     cursor: pointer;
     letter-spacing: 1px;
-    padding: 10px 0;
+    padding: 0;
     background: #0879c9;
     color: #fff;
     margin: 2vw 0 1.5vw;
@@ -246,7 +247,6 @@ input[type="submit"] {
 .logo_agile {
     padding: 26px 0 21px;
 }
-
 /*-- //logo --*/
 
 /*-- header cart button --*/
@@ -308,6 +308,14 @@ ul.multi-column-dropdown li a:hover {
 .dropdown-menu>.active>a:hover,
 .dropdown-menu>.active>a:focus {
     background-color: #F45C5D;
+    margin-top: 0;
+}
+.dropdown-menu a {
+    color: #333333;
+}
+.dropdown-menu a:hover {
+    color: #F45C5D;
+    text-decoration: none;
 }
 
 .dropdown-item {
@@ -582,12 +590,20 @@ h3.tittle-w3l span {
 
 .men-pro-item {
     position: relative;
+    height: 500px;
 }
 
 .men-thumb-item {
     position: relative;
+    height: 200px;
 }
-
+.item-info-product h4 a{
+    display: block;
+    width: 100%;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .men-thumb-item img{
     max-height: 200px;
 }
@@ -1512,26 +1528,27 @@ li.subitem1 p {
 
 .single-infoagile ul li {
     display: block;
-    font-size: 14px;
+    font-size: 1.1em;
 }
 
 .product-single-w3l {
     border-top: 1px solid #0879c9;
+    font-size: 1.1em;
 }
 
 .product-single-w3l p i {
     color: #0879c9;
-    font-size: 24px;
+    font-size: 1.1em;
 }
 
 .product-single-w3l p {
     color: #000;
     letter-spacing: 0.5px;
+    font-size: 1.1em;
 }
-
 .product-single-w3l ul li {
-    list-style: inside;
-    font-size: 14px;
+    list-style: none;
+    font-size: 1.1em;
     line-height: 1.7;
 }
 
@@ -3360,4 +3377,24 @@ div#testimonials h4.m-title {
 .my-btn-link a:hover {
     color: #ffffff;
     text-decoration: none;
+}
+#item-createdDate {
+    color: #007bff;
+    font-style: italic;
+    padding: 0 20px;
+    font-weight: 600;
+}
+.badges-bar {
+    margin: 3px 0 6px 0;
+}
+/*Badges*/
+.badges-bar .badge {
+    color: #007bff;
+    background-color: #ffffff;
+    border: 1px solid #007bff;
+    padding: 10px 15px;
+    margin: 5px;
+}
+.badges-bar .badge:nth-child(2) {
+    margin-left: 3px;
 }

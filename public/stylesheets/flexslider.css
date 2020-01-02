@@ -59,8 +59,8 @@
 }
 
 .flexslider .slides img {
-  width: 60%;
-  max-height: 500px;
+  width: 80%;
+  height: auto;
   display: block;
   margin: 0 auto 10px auto;
 }
@@ -110,7 +110,7 @@ html[xmlns] .flexslider .slides {
 }
 
 .flexslider .slides img {
-  height: auto;
+  max-height: 600px;
   -moz-user-select: none;
 }
 
@@ -268,7 +268,7 @@ html[xmlns] .flexslider .slides {
   width: 30%;
   float: left;
   margin: 0 3% 0 0;
-  height: 200px;
+  height: 120px;
 }
 
 .flex-control-thumbs li:last-child {
