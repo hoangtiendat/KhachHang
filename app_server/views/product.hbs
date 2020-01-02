@@ -101,30 +101,12 @@
                                               <input type="hidden" name="productId" value="{{productId}}"/>
                                               <a href="#" onclick="this.parentNode.submit(); return false;">{{name}}</a>
                                           </form>
-                                            
-                                            <p> {{category.categoryName}} </p>
-                                            <p> {{store.name}}</p>
                                       </h4>
                                       <div class="info-product-price my-2">
                                           <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
                                           <del>{{number price}}</del>
                                       </div>
-                                      <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Samsung Galaxy J7" />
-                                                    <input type="hidden" name="amount" value="6000000.00" />
-                                                    <input type="hidden" name="discount_amount" value="1000000.00" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                      <a href="/add/{{productId}}" class="btn btn-default pull-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</a>
                                   </div>
                               </div>
                           </div>

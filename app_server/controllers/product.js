@@ -3,6 +3,7 @@
 const Product = require('../models/product');
 const Category = require('../models/category');
 const Brand = require('../models/brand');
+var Cart = require('../models/cart');
 
 const product = async (req, res) => {
 
@@ -28,17 +29,17 @@ const product = async (req, res) => {
 
     var json = '{';
     if(req.body.categoryType && req.body.categoryType != ''){
-        json += '"categoryId":' + req.body.categoryType+'';
+        json += '"categoryId":"' + req.body.categoryType+'"';
     } else if(req.params.category){
-        json += '"categoryId":' + req.params.category+'';
+        json += '"categoryId":"' + req.params.category+'"';
     }
     if (json != '{' && req.body.storeType && req.body.storeType != ''){
         json += ', ';
     }
     if(req.body.storeType && req.body.storeType != ''){
-        json += '"storeId":' + req.body.storeType+'';
+        json += '"storeId":"' + req.body.storeType+'"';
     } else if(req.params.store){
-        json += '"storeId":' + req.params.store+'';
+        json += '"storeId":"' + req.params.store+'"';
     }
 
     var price = '';
@@ -62,7 +63,7 @@ const product = async (req, res) => {
     }
 
     json += '}';
-
+    console.log(json);
     const obj = JSON.parse(json);
     var sort = '{}';
     if (req.query.sort){
@@ -142,10 +143,21 @@ const productDetail = async (req, res) => {
         user: (req.isAuthenticated) ? req.user : null
     });
 };
-
+const cart = async (req, res, next) => {
+  var productId = req.params.id;
+  console.log(productId);
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+  const product = await Product.getProductById(productId);
+  console.log(product);
+  cart.add(product, productId);
+  console.log(cart);
+  req.session.cart = cart;
+  res.redirect('/');
+};
 module.exports = {
     product,
     // productCategory,
     // productstore,
-    productDetail
+    productDetail,
+    cart
 };

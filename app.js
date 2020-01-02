@@ -7,6 +7,7 @@ var logger = require('morgan');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
 const flash = require('connect-flash');
+var favicon = require('serve-favicon');
 const expressSession = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
@@ -43,6 +44,7 @@ app.use(passport.session());
 app.use(flash());
 
 app.use(function(req, res, next) {
+  res.locals.session = req.session;
   //Authentication
   if (req.isAuthenticated()){
     res.locals.user = req.user;
