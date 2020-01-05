@@ -137,10 +137,21 @@ const productDetail = async (req, res) => {
     const product = await Product.getProductById(req.params.productId);
     if (product){
         product.salePrice = parseInt(product.price) - parseInt(product.discount);
+        const relatedProducts = await Product.getAllProduct({
+            productId: {$ne: product.productId},
+            storeId: product.store.storeId,
+            categoryId: product.category.categoryId
+        }, {
+            createdDate: -1
+        });
+        relatedProducts.forEach((product) => {
+            product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
+        });
         res.render('item_detail', {
             title: product  .name,
             product: product,
-            imageUrlArr: product.urlImage.split(constant.urlImageSeperator)
+            imageUrlArr: product.urlImage.split(constant.urlImageSeperator),
+            relatedProducts: relatedProducts
         });
     } else {
         res.render('error', {
