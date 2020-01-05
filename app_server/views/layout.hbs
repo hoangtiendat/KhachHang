@@ -216,8 +216,8 @@
                       <div class="row">
                           <!-- search -->
                           <div class="col-10 agileits_search">
-                              <form class="form-inline" action="/search" method="post">
-                                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search" required>
+                              <form class="form-inline" action="/search" method="get">
+                                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="keyword" required>
                                   <button class="btn my-2 my-sm-0" type="submit">Tìm kiếm</button>
                               </form>
                           </div>
@@ -343,6 +343,9 @@
                                       {{/each}}
                                   </div>
                               </div>
+                          </li>
+                          <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
+                              <a class="nav-link" href="/advancedSearch">Tìm kiếm nâng cao</a>
                           </li>
                           <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
                               <a class="nav-link" href="/about">About Us</a>

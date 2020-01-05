@@ -163,7 +163,6 @@ p.dont-do a {
 .right-w3l input[type="submit"] {
     cursor: pointer;
     letter-spacing: 1px;
-    padding: 0;
     background: #0879c9;
     color: #fff;
     margin: 2vw 0 1.5vw;
@@ -3426,4 +3425,13 @@ a {
 
 .cart.page {
   padding: 25px 0;
+}
+
+#filterBtn {
+    padding: 0;
+}
+#advanced-search-btn {
+    display: block;
+    padding: 12px 40px;
+    margin: 0 auto;
 }

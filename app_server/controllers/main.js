@@ -27,12 +27,6 @@ const history = (req, res) => {
 	});
 };
 
-const search = (req, res) => {
-	res.render('search', {
-		title: 'Tìm kiếm',
-	});
-};
-
 // const profilePage = (req, res) => {
 // 	res.render('profile', {
 // 		title: 'Hồ sơ',
@@ -117,7 +111,6 @@ module.exports = {
 	home,
 	checkout,
 	history,
-	search,
 	contact,
 	about,
 	privacy,

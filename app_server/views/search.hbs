@@ -6,135 +6,78 @@
             <span>K</span>ết
             <span>Q</span>uả
             <span>T</span>ìm
-            <span>K</span>iếm
+            <span>K</span>iếm: {{keyword}}
         </h3>
         <!-- //tittle heading -->
+        {{#if isAdvancedSearch}}
+        <div class="row">
+            <a class="backHomeLink" href="/advancedSearch" style="margin: 0 15px 15px 15px;"><i class="fas fa-arrow-left"></i> Về trang tìm kiếm nâng cao</a>
+        </div>
+        {{/if}}
         <div class="row">
             <!-- product left -->
             <div class="agileinfo-ads-display col-lg-9">
                 <div class="wrapper">
-                    <!-- first section -->
+                    <!-- template section -->
                     <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
+                        <!-- <div class="row" id="result">
+
+                        </div> -->
                         <div class="row">
-                            <div class="col-md-4 product-men mt-5">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item text-center">
-                                        <img src="images/m1.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="item_detail" class="link-product-add-cart">Xem nhanh</a>
+                            {{# each products}}
+                                <div class="col-md-4 product-men mt-5">
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                        <div class="men-thumb-item text-center">
+                                            <img src="{{firstImageUrl}}" alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href="/item_detail/{{productId}}" class="link-product-add-cart">Xem nhanh</a>
+
+                                                </div>
                                             </div>
+                                            {{#if new}}
+                                                <span class="product-new-top">Mới</span>
+                                            {{/if}}
                                         </div>
-                                    </div>
-                                    <div class="item-info-product text-center border-top mt-4">
-                                        <h4 class="pt-1">
-                                            <a href="item_detail">Samsung Galaxy J7</a>
-                                        </h4>
-                                        <div class="info-product-price my-2">
-                                            <span class="item_price">5.000.000 VNĐ</span>
-                                            <del>6.000.000</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Samsung Galaxy J7" />
-                                                    <input type="hidden" name="amount" value="6000000.00" />
-                                                    <input type="hidden" name="discount_amount" value="1000000.00" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                </fieldset>
-                                            </form>
+                                        <div class="item-info-product text-center border-top mt-4">
+                                            <h4 class="pt-1 text-center">
+                                                <a href="/item_detail/{{productId}}" class="text-center">{{name}}&nbsp;</a>
+                                                <p> {{category.categoryName}} </p>
+                                                <p> {{store.name}}</p>
+                                            </h4>
+                                            <div class="info-product-price my-2">
+                                                <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
+                                                <del>{{number price}}</del>
+                                            </div>
+                                            <a href="/add/{{productId}}" class="btn btn-default pull-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 product-men mt-5">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item text-center">
-                                        <img src="images/m2.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="item_detail" class="link-product-add-cart">Xem nhanh</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">Mới</span>
-
-                                    </div>
-                                    <div class="item-info-product text-center border-top mt-4">
-                                        <h4 class="pt-1">
-                                            <a href="item_detail">OPPO A37f</a>
-                                        </h4>
-                                        <div class="info-product-price my-2">
-                                            <span class="item_price">6.000.000 VNĐ</span>
-                                            <del>7.000.000</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="OPPO A37f" />
-                                                    <input type="hidden" name="amount" value="7000000.00" />
-                                                    <input type="hidden" name="discount_amount" value="1000000.00" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men mt-5">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item text-center">
-                                        <img src="images/m3.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="item_detail" class="link-product-add-cart">Xem nhanh</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">Mới</span>
-
-                                    </div>
-                                    <div class="item-info-product text-center border-top mt-4">
-                                        <h4 class="pt-1">
-                                            <a href="item_detail">Apple iPhone X</a>
-                                        </h4>
-                                        <div class="info-product-price my-2">
-                                            <span class="item_price">7.000.000 VNĐ</span>
-                                            <del>8.000.000</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Apple iPhone X" />
-                                                    <input type="hidden" name="amount" value="8000000.00" />
-                                                    <input type="hidden" name="discount_amount" value="1000000.00" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{/each}}
                         </div>
                     </div>
-                    <!-- //first section -->
+                    <!-- //template section -->
+                    <nav id="product-pagination" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {{#paginate pagination type="first"}}
+                                <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
+                            {{/paginate}}
+                            {{#paginate pagination type="previous"}}
+                                <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="p={{n}}">Prev</a></li>
+                            {{/paginate}}
+                            {{#paginate pagination type="middle" limit="7"}}
+                                <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
+                            {{/paginate}}
+                            {{#paginate pagination type="next"}}
+                                <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
+                            {{/paginate}}
+                            {{#paginate pagination type="last"}}
+                                <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
+                            {{/paginate}}
+                        </ul>
+                    </nav>
+
+
                 </div>
             </div>
             <!-- //product left -->
@@ -143,9 +86,9 @@
             <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
                 <div class="side-bar p-sm-4 p-3">
                     <div class="search-hotel border-bottom py-2">
-                        <h3 class="agileits-sear-head mb-3">Tìm kiếm..</h3>
-                        <form action="/search" method="post">
-                            <input type="search" placeholder="Tên sản phẩm..." name="search" required="">
+                        <h3 class="agileits-sear-head mb-3">Tìm kiếm...</h3>
+                        <form action="/search" method="get">
+                            <input type="search" placeholder="Tên sản phẩm..." name="keyword" required="">
                             <input type="submit" value=" ">
                         </form>
                     </div>

@@ -126,7 +126,7 @@ const pwdEmail = async (req, res, next) => {
     } catch(error) {
       next(error);
     }
-  }
+};
 
 const changePwdPage = (req, res) => {
     res.render('changePwd', {
@@ -135,7 +135,7 @@ const changePwdPage = (req, res) => {
         error_messages: req.flash('error'),
         success_messages: req.flash('success')
     });
-}
+};
 const changePwd = async (req, res, next) => {
     try {
       const pwdOld = req.body.passwordOld;
@@ -171,13 +171,13 @@ const changePwd = async (req, res, next) => {
 const logout = (req, res) => {
     req.logOut();
     res.redirect('/');
-}
+};
 const signupPage = (req, res) => {
     res.render('signup', {
         title: 'Đăng ký',
         layout: false ,
     });
-}
+};
 const signup =  async (req, res, next) => {
     try {
         let user = await User.checkUsername(req.body.username);

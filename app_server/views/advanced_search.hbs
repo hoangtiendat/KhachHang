@@ -1,0 +1,82 @@
+<!-- checkout page -->
+<div class="privacy py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>T</span>ìm kiếm nâng cao
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-left">
+            <div class="address_form_agile mt-sm-5 mt-4">
+                <form action="/advancedSearchResult" method="get" class="creditly-card-form agileinfo_form">
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                <div class="controls form-group">
+                                    <label for="search_keyword" class="">Từ khóa <span style="color: red">*</span></label>
+                                    <input id="search_keyword" class="billing-address-name form-control" type="text" name="keyword" placeholder="Nhập tên sản phẩm" required="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="categoryType">
+                                        Loại sản phẩm <span style="color: red">*</span>
+                                    </label>
+                                    <select class="form-control" id="categoryType" name="categoryType" style="padding: 0 5px;">
+                                        <option value="">Tất cả</option>
+                                        {{#select category}}
+                                            {{#each categories}}
+                                                <option value="{{categoryId}}">{{categoryName}}</option>
+                                            {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="brandType">
+                                        Hãng sản xuất <span style="color: red">*</span>
+                                    </label>
+                                    <select class="form-control" id="brandType" name="brandType" style="padding: 0 5px;">
+                                        <option value="">Tất cả</option>
+                                        {{#select brand}}
+                                            {{#each brands}}
+                                                <option value="{{brandId}}">{{name}}</option>
+                                            {{/each}}
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="priceType">
+                                        Mức giá <span style="color: red">*</span>
+                                    </label>
+                                    <select class="form-control" id="priceType" name="priceType" style="padding: 0 5px;">
+                                        {{#select price}}
+                                            <option value="">Tất cả</option>
+                                            <option value="3000000">Dưới 3 triệu</option>
+                                            <option value="7000000">Từ 3 - 7 triệu</option>
+                                            <option value="10000000">Từ 7 - 10 triệu</option>
+                                            <option value="10000001">Trên 10 triệu</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="newType">
+                                        Sản phẩm mới <span style="color: red">*</span>
+                                    </label>
+                                    <select class="form-control" id="newType" name="newType" style="padding: 0 5px;">
+                                        {{#select new}}
+                                            <option value="">Tất cả</option>
+                                            <option value="true">Có</option>
+                                            <option value="false">Không</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="advanced-search-btn" class="submit check_out btn">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //checkout page -->
