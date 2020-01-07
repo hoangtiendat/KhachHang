@@ -64,7 +64,10 @@ const checkout = async (req, res, next) => {
         res.redirect('/');
     } else {
         //Fail
-        res.redirect('/checkout');
+        res.render('error', {
+            title: 'Lỗi thanh toán đơn đặt hàng',
+            message: "Thanh toán đơn đặt hàng đã thất bại"
+        })
     }
 };
 

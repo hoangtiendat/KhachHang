@@ -182,11 +182,13 @@ const signup =  async (req, res, next) => {
     try {
         let user = await User.checkUsername(req.body.username);
         const secretToken = randomstring.generate();
+        console.log(user);
+        console.log(secretToken);
         if (user){
             res.render('signup', {
                 title: 'Đăng ký',
                 layout: false,
-                error_message: "Tên đăng nhập đã tồn tại !!!"
+                error_messages: "Tên đăng nhập đã tồn tại !!!"
             });
         } else {
             const result = await User.addUser(req.body.username, req.body.email, req.body.password, secretToken);
