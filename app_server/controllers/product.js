@@ -97,6 +97,7 @@ const product = async (req, res) => {
 
 const productDetail = async (req, res) => {
     const page = parseInt(req.query.p) || 1;
+    req.session.originalUrl = req.originalUrl;
     const product = await Product.getProductById(req.params.productId);
     const comments = await Comment.getCommentsByProduct(req.params.productId, 3, page);
     const count = await Comment.getCountByProduct(req.params.productId);

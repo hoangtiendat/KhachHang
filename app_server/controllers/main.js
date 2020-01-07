@@ -8,6 +8,7 @@ const Bill = require('../models/bill');
 
 const home = async (req, res) => {
 	var perPage = 6;
+	req.session.originalUrl = req.originalUrl;
     var page = parseInt(req.query.p) || 1;
 	const products = await Product.getProduct({new: true}, {createdDate: -1}, perPage, page);
 	products.forEach((product) => {

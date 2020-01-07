@@ -56,7 +56,7 @@ module.exports = {
             const result = await bill.save();
             for (let product of cart.getItems()){
                 await this.addBillDetail(bill.billId, product.item.productId, product.item.quantity);
-                // await ProductModel.increasePurchaseCount(product.item.productId, product.item.quantity);
+                await ProductModel.increasePurchaseCount(product.item.productId, product.item.quantity);
             }
             return result;
         } catch(err){
