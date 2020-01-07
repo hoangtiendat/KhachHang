@@ -7,6 +7,9 @@ module.exports = {
     checkUsername(username){
         return User.findOne({username: username}).exec();
     },
+    checkEmail(email){
+        return User.findOne({email: email}).exec();
+    },
     findToken(secretToken){
         return User.findOne({secretToken: secretToken}).exec();
     },

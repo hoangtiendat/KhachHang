@@ -77,22 +77,23 @@ const email =  async (req, res, next) => {
       await user.save();
       console.log(user);
       const html = `Hi there,
-        <br/>
-        Thank you for registering!
         <br/><br/>
-        Please verify your email by typing the following token:
+        Hãy xác nhận tài khoản của bạn bằng cách gõ token sau đây:
         <br/>
         Token: <b>${secretToken}</b>
         <br/>
-        On the following page:
-        <a href="http://localhost:8080/pwdEmail">http://localhost:8080/pwdEmail</a>
+        Theo trang:
+        <a href="https://floating-sea-37462.herokuapp.com/pwdEmail">https://floating-sea-37462.herokuapp.com/pwdEmail</a>
         <br/><br/>
-        Have a pleasant day.` 
+        Chúc bạn một ngày tốt đẹp.
+        <br/><br/>
+        Thân,
+        <a href="https://floating-sea-37462.herokuapp.com/">Shoppy</a>` 
 
         // Send email
-        await mailer.sendEmail('admin@codeworkrsite.com', req.body.email, 'Please verify your email!', html);
+        await mailer.sendEmail('admin@codeworkrsite.com', req.body.email, 'Hãy xác nhận email của bạn!', html);
 
-        req.flash('success', 'Please check your email.');
+        req.flash('success', 'Làm ơn hãy kiểm tra email của bạn.');
         res.redirect('/login');
     } catch(error) {
       next(error);
@@ -181,9 +182,17 @@ const signupPage = (req, res) => {
 const signup =  async (req, res, next) => {
     try {
         let user = await User.checkUsername(req.body.username);
+        let email = await User.checkEmail(req.body.email);
         const secretToken = randomstring.generate();
         console.log(user);
         console.log(secretToken);
+        if (email){
+            res.render('signup', {
+                title: 'Đăng ký',
+                layout: false,
+                error_messages: "Email đã tồn tại !!!"
+            });
+        }
         if (user){
             res.render('signup', {
                 title: 'Đăng ký',
@@ -192,38 +201,28 @@ const signup =  async (req, res, next) => {
             });
         } else {
             const result = await User.addUser(req.body.username, req.body.email, req.body.password, secretToken);
-            // if (result){
-            //     //Success
-            //     res.render('login', {
-            //         title: 'Đăng nhập',
-            //         layout: false,
-            //         signup_success_message: "Đăng ký tài khoản thành công"
-            //     });
-            // } else {
-            //     //Fail
-            //     res.render('signup', {
-            //         title: 'Đăng ký',
-            //         layout: false,
-            //         error_message: "Đăng ký thất bại !!!"
-            //     });
-            // }
-            const html = `Hi there,
+
+            const html = `Chào bạn!,
               <br/>
-              Thank you for registering!
+              Cảm ơn bạn đã đăng ký ứng dụng của chúng tôi!
               <br/><br/>
-              Please verify your email by typing the following token:
+              Hãy xác nhận tài khoản của bạn bằng cách gõ token sau đây:
               <br/>
               Token: <b>${secretToken}</b>
               <br/>
-              On the following page:
-              <a href="http://localhost:8080/verify">http://localhost:8080/verify</a>
+              Theo trang:
+              <a href="https://floating-sea-37462.herokuapp.com/verify">https://floating-sea-37462.herokuapp.com/verify</a>
               <br/><br/>
-              Have a pleasant day.` 
+              Chúc bạn một ngày tốt đẹp.
+              <br/><br/>
+              Thân,
+              <a href="https://floating-sea-37462.herokuapp.com/">Shoppy</a>
+              ` 
 
               // Send email
-              await mailer.sendEmail('admin@codeworkrsite.com', req.body.email, 'Please verify your email!', html);
+              await mailer.sendEmail('admin@codeworkrsite.com', req.body.email, 'Hãy xác nhận email của bạn!', html);
 
-              req.flash('success', 'Please check your email.');
+              req.flash('success', 'Làm ơn hãy kiểm tra email của bạn.');
               res.redirect('/login');
         }
     } catch(error) {
