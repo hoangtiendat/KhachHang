@@ -284,4 +284,32 @@ module.exports = {
       });
     })
   }
+  searchProduct (keyword, perPage, page) {
+      return Product.find({
+        name:  { "$regex": keyword, "$options": "ig" }
+        })
+          .populate('store')
+          .populate('category')
+          .limit(perPage)
+          .skip(perPage * (page - 1))
+          .sort({createdDate: -1})
+          .exec();
+  },
+  countSearchProduct (keyword) {
+    return Product.count({
+      name:  { "$regex": keyword, "$options": "ig" }
+    }).exec();
+  },
+  advancedSearch(query, perPage, page){
+    return Product.find(query)
+        .populate('store')
+        .populate('category')
+        .limit(perPage)
+        .skip(perPage * (page - 1))
+        .sort({createdDate: -1})
+        .exec();
+  },
+  countAdvancedSearchProduct (query) {
+    return Product.count(query).exec();
+  },
 };

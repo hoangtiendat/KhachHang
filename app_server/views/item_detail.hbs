@@ -167,5 +167,37 @@
             </div>
             
         </div>                
+        <h4 class="tittle-w3l mt-5"><i class="fab fa-windows"></i> <span>S</span>ản phẩm thường được xem cùng</h4>
+        <div class="row position-relative">
+            <div id="relatedProducts" class="cS-hidden" style="width: 1000px;">
+                {{# each relatedProducts}}
+                    <div class="product-men mt-5">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item text-center">
+                                <a href="/item_detail/{{productId}}" class=""><img src="{{firstImageUrl}}" alt=""></a>
+                                {{#if new}}
+                                    <span class="product-new-top">Mới</span>
+                                {{/if}}
+                            </div>
+                            <div class="item-info-product text-center border-top mt-4">
+                                <h4 class="pt-1 text-center">
+                                    <a href="/item_detail/{{productId}}" class="text-center">{{name}}&nbsp;</a>
+                                </h4>
+                                <div class="info-product-price my-2">
+                                    <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
+                                    <del>{{number price}}</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <span id="related-product-slide-left" class="related-product-control related-product-control-left">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span id="related-product-slide-right" class="related-product-control related-product-control-right">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+        </div>
     </div>
 </div>

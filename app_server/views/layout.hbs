@@ -19,6 +19,8 @@
       <!-- Custom-Files -->
       <link href="/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
       <!-- Bootstrap css -->
+      <link href="/stylesheets/lightslider.min.css" rel="stylesheet" type="text/css" media="all" />
+      <!-- Lightslider css -->
       <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" media="all" />
       <!-- Main css -->
       <link rel="stylesheet" href="/stylesheets/fontawesome-all.css">
@@ -220,8 +222,8 @@
                       <div class="row">
                           <!-- search -->
                           <div class="col-10 agileits_search">
-                              <form class="form-inline" action="/search" method="post">
-                                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search" required>
+                              <form class="form-inline" action="/search" method="get">
+                                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="keyword" required>
                                   <button class="btn my-2 my-sm-0" type="submit">Tìm kiếm</button>
                               </form>
                           </div>
@@ -358,6 +360,9 @@
                                       {{/each}}
                                   </div>
                               </div>
+                          </li>
+                          <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
+                              <a class="nav-link" href="/advancedSearch">Tìm kiếm nâng cao</a>
                           </li>
                           <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
                               <a class="nav-link" href="/about">About Us</a>
@@ -812,6 +817,10 @@
       <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
       <!-- //for bootstrap working -->
 
+      <!-- LightSlider -->
+      <script type="text/javascript" src="/javascripts/lightslider.min.js"></script>
+      <!-- //LightSlider -->
+
       <!-- Service js-->
       <script type="text/javascript" src="/javascripts/service/loading.js"></script>
       <script type="text/javascript">
@@ -827,6 +836,11 @@
           })
       </script>
       <!-- //Service js -->
+
+      <!-- SharedScripts js-->
+      <script type="text/javascript" src="/javascripts/sharedScripts.js"></script>
+      <!-- //SharedScripts js -->
+
       <!-- //js-files -->
       <!-- //template -->
 

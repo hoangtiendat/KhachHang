@@ -125,7 +125,6 @@ module.exports = {
 	checkoutPage,
 	checkout,
 	history,
-	search,
 	contact,
 	about,
 	privacy,

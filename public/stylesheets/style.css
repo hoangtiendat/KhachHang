@@ -163,7 +163,6 @@ p.dont-do a {
 .right-w3l input[type="submit"] {
     cursor: pointer;
     letter-spacing: 1px;
-    padding: 0;
     background: #0879c9;
     color: #fff;
     margin: 2vw 0 1.5vw;
@@ -3403,11 +3402,11 @@ a {
   color: #00B7FF;
 }
 
-* {
+/** {
   -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
-}
+}*/
 
 .dropdown-menu .cart {
   min-width: 250px;
@@ -3514,3 +3513,42 @@ input[type="file"]{
     cursor: pointer;
 }
 .custom-input-file:hover .uploadPhoto { display: block; }
+
+#filterBtn {
+    padding: 0;
+}
+#advanced-search-btn {
+    display: block;
+    padding: 12px 40px;
+    margin: 0 auto;
+}
+#relatedProducts > div {
+    width: 240px;
+}
+.related-product-control {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #666666;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    top: 27%;
+}
+.related-product-control:hover {
+    background-color: #ffffff;
+    color: #666666;
+    cursor: pointer;
+}
+
+.related-product-control i {
+    vertical-align: middle;
+}
+
+.related-product-control-left {
+    left: 0;
+}
+
+.related-product-control-right {
+    right: 0;
+}

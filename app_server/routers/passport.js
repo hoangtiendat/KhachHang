@@ -11,11 +11,14 @@ passport.use(new LocalStrategy(
         User.findOne({ username: username, type: {$eq: constant.type["customer"]}}, function(err, user) {
             if (err) { return done(err); }
             if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
+                return done(null, false, { message: 'Username không tồn tại.' });
+            }
+            if (!user.isActive){
+                return done(null, false, { message: 'Tài khoản đã bị khóa.' });
             }
             bcrypt.compare(password, user.password, (err, result) => {
                 if (result !== true){
-                    return done(null, false, { message: 'Incorrect password.' });
+                    return done(null, false, { message: 'Mật khẩu không đúng.' });
                 } else {
                     return done(null, user);
                 }

@@ -17,7 +17,7 @@ router.post('/login', function(req, res, next){
     passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
         if (!user) { 
-            req.flash('error', 'No user found.');
+            req.flash('error', info.message);
             res.redirect('/login');
             return; }
         req.logIn(user, (err) => {
@@ -68,9 +68,11 @@ router.get('/history', billCtrl.bills);
 
 router.get('/bill_detail/:billId', billCtrl.bill_detail);
 
-router.get('/search', ctrlMain.search);
+router.get('/search', productCtrl.search);
 
-router.post('/search', ctrlMain.search);
+router.get('/advancedSearch', productCtrl.advancedSearch);
+
+router.get('/advancedSearchResult', productCtrl.advancedSearchResult);
 
 router.get('/profile', userCtrl.profile)
 

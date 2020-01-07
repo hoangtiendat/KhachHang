@@ -102,6 +102,16 @@ const productDetail = async (req, res) => {
     const count = await Comment.getCountByProduct(req.params.productId);
     if (product){
         product.salePrice = parseInt(product.price) - parseInt(product.discount);
+        const relatedProducts = await Product.getAllProduct({
+            productId: {$ne: product.productId},
+            storeId: product.store.storeId,
+            categoryId: product.category.categoryId
+        }, {
+            createdDate: -1
+        });
+        relatedProducts.forEach((product) => {
+            product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
+        });
         res.render('item_detail', {
             title: product  .name,
             product: product,
@@ -109,6 +119,7 @@ const productDetail = async (req, res) => {
             comments: comments,
             page: page,
             pages: Math.ceil(count / constant.perPage),
+            relatedProducts: relatedProducts
         });
     } else {
         res.render('error', {
@@ -146,9 +157,120 @@ const comment = async (req, res, next) => {
 
 
 
+const search = async (req, res) => {
+    const perPage = 6;
+    const page = parseInt(req.query.p) || 1;
+    const originalUrl = req.originalUrl;
+
+    if (req.query.keyword){
+        localStorage.setItem('keyword', req.query.keyword);
+    } else {
+        localStorage.setItem('keyword', "");
+    };
+    const keyword = localStorage.getItem('keyword');
+    const products = await Product.searchProduct(keyword, perPage, page);
+    const count = await Product.countSearchProduct(keyword || "");
+    products.forEach((product) => {
+        product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
+    });
+    res.render('search', {
+        title: 'Tìm kiếm ' + keyword,
+        products: products,
+        pagination: { page: page, pageCount: Math.ceil(count / perPage)},
+        keyword: req.query.keyword || "",
+        originalUrl: `/search?keyword=${keyword}`
+    });
+};
+
+const advancedSearch = async (req, res) => {
+    res.render('advanced_search', {
+        title: 'Tìm kiếm nâng cao',
+    });
+};
+
+const advancedSearchResult = async (req, res) => {
+    var perPage = 6;
+    var page = parseInt(req.query.p) || 1;
+    var originalUrl = req.originalUrl;
+
+    const keyword = req.query.keyword || "";
+    const category = req.query.categoryType || "";
+    const brand = req.query.brandType || "";
+    const price = req.query.priceType || "";
+    const isNew = req.query.newType || "";
+
+    let json = `{ "name": { "$regex": "${keyword}", "$options": "ig" } `;
+
+    if (json !== '{' && category && category !== ''){
+        json += ', ';
+    }
+
+    if(category && category !== ''){
+        json += '"categoryId": ' + category +'';
+    }
+
+    if (json !== '{' && brand && brand !== ''){
+        json += ', ';
+    }
+    if(brand && brand !== ''){
+        json += '"storeId": ' + brand +'';
+    }
+
+    if (json !== '{' && isNew && isNew !== ''){
+        json += ', ';
+    }
+    if(isNew && isNew !== ''){
+        json += '"new": ' + isNew +'';
+    }
+
+    let priceStr = '';
+    if (price && price !== ''){
+        if (price === '3000000') {
+            priceStr = '{ "$lte" : 3000000 }';
+        } else if (price === '7000000') {
+            priceStr = '{ "$gt" : 3000000, "$lte" : 7000000}';
+        } else if (price === '10000000') {
+            priceStr = '{ "$gt" : 7000000, "$lte" : 10000000}';
+        } else {
+            priceStr = '{ "$gt" : "10000000" }';
+        }
+    }
+
+    if(priceStr !== ''){
+        if (json !== '{'){
+            json += ', ';
+        }
+        json += '"price": ' + priceStr + '';
+    }
+
+    json += '}';
+    console.log(json);
+    const obj = JSON.parse(json);
+
+    const products = await Product.advancedSearch(obj, perPage, page);
+    products.forEach((product) => {
+        product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
+    });
+    const count = await Product.countAdvancedSearchProduct(obj);
+    res.render('search', {
+        title: 'Sản phẩm',
+        products: products,
+        keyword: keyword,
+        category: category,
+        brand: brand,
+        price: price,
+        new: isNew,
+        pagination: { page: page, pageCount: Math.ceil(count / perPage)},
+        originalUrl: `/advancedSearchResult?keyword=${keyword}&categoryType=${category}&brandType=${brand}&localPrice=${price}&newType=${isNew}`,
+        isAdvancedSearch: true
+    });
+};
 module.exports = {
     product,
     productDetail,
     cart,
-    comment
+    comment,
+    search,
+    advancedSearch,
+    advancedSearchResult
 };
