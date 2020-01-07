@@ -15,7 +15,7 @@ const home = async (req, res) => {
 	});
 	const count = await Product.getCount({new: true});
 	res.render('index', {
-		title: 'Trang chủ',
+		title: 'Shoppy',
 		products: products,
 		pagination: { page: page, pageCount: Math.ceil(count / perPage)}
 	});

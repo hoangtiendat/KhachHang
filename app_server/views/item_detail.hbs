@@ -95,81 +95,96 @@
             </span>
         </div>
         
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1" id="login">
-                <div class="page-header">
-                    <h3 class="reviews">Bình luận </h3>
-                </div>
-                <div class="comment-tabs">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link" href="#comments-login" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
-                        {{#if user}}
-                        <li class="nav-item"><a class="nav-link" href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4></a></li>
-                        {{/if}}
-                    </ul>            
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="comments-login">                
-                            <ul class="media-list">
-                            {{# each comments}}
-                              <li class="media">
-                                <a class="pull-left" href="#">
-                                  <img class="media-object img-circle" src="../images/avatar.png" alt="profile">
-                                </a>
-                                <div class="media-body">
-                                  <div class="well well-lg">
-                                      <h4 class="media-heading text-uppercase reviews">{{user.username}}</h4>
-                                      <ul class="media-date text-uppercase reviews list-inline">
-                                        <li class="dd/mm/aaaa">{{parseDate createdDate " ."}}</li>
-                                      </ul>
-                                      <p class="media-comment">
-                                        {{content}}
-                                      </p>
-                                  </div>              
-                                </div>
-                              </li>
-                            {{/each}}         
-                            </ul> 
-                            <!--Pagination-->
-                            <nav id="product-pagination" aria-label="Page navigation example">
-                              <ul class="pagination">
-                                {{#paginate pagination type="first"}}
-                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
-                                {{/paginate}}
-                                {{#paginate pagination type="previous"}}
-                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Prev</a></li>
-                                {{/paginate}}
-                                {{#paginate pagination type="middle" limit="7"}}
-                                  <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
-                                {{/paginate}}
-                                {{#paginate pagination type="next"}}
-                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
-                                {{/paginate}}
-                                {{#paginate pagination type="last"}}
-                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
-                                {{/paginate}}
+
+        <div class="tile" id="tile-1">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs nav-justified" role="tablist">
+            <div class="slider"></div>
+             <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fas fa-comment"></i> Bình luận</a>
+              </li>
+              {{#if user}}
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="fas fa-plus"></i> Thêm bình luận</a>
+              </li>
+              {{/if}}
+            
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="media-list">
+                    {{# each comments}}
+                      <li class="media">
+                        <a class="pull-left" href="#">
+                          <img class="rounded-circle" src="../images/avatar.png" alt="profile" height="50">
+                        </a>
+                        <div class="media-body">
+                          <div class="well well-lg">
+                              <h5 class="text-uppercase">{{user.username}}</h5>
+                              <ul class="media-date text-uppercase list-inline">
+                                <li class="dd/mm/aaaa">{{parseDate createdDate " ."}}</li>
                               </ul>
-                            </nav>
-                            <div class="clearfix"> </div>
+                              <p class="media-comment">
+                                {{content}}
+                              </p>
+                          </div>              
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="add-comment">
-                            <form action="/comment/{{product.productId}}" method="post" class="form-horizontal" id="commentForm" role="form">
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label">Comment</label>
-                                    <div class="col-sm-10">
-                                      <textarea class="form-control" name="addComment" id="addComment" rows="5"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">                    
-                                        <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
-                                    </div>
-                                </div>            
-                            </form>
-                        </div>
+                      </li>
+                    {{/each}}         
+                </ul> 
+                <!--Pagination-->
+                <nav id="product-pagination" aria-label="Page navigation example">
+                  <ul class="pagination">
+                    {{#paginate pagination type="first"}}
+                      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
+                    {{/paginate}}
+                    {{#paginate pagination type="previous"}}
+                      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Prev</a></li>
+                    {{/paginate}}
+                    {{#paginate pagination type="middle" limit="7"}}
+                      <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
+                    {{/paginate}}
+                    {{#paginate pagination type="next"}}
+                      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
+                    {{/paginate}}
+                    {{#paginate pagination type="last"}}
+                      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
+                    {{/paginate}}
+                  </ul>
+                </nav>
+                <div class="clearfix"> </div>
+            </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <form action="/comment/{{product.productId}}" method="post" class="form-horizontal" id="commentForm" role="form">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="addComment" id="addComment" rows="5"></textarea>
                     </div>
                 </div>
-            </div>
-            
-        </div>  
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">                    
+                        <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Bình luận</button>
+                    </div>
+                </div>            
+            </form>
+          </div>
+
+        </div> 
     </div>
 </div>
+
+
+
+<script>
+$("#tile-1 .nav-tabs a").click(function() {
+  var position = $(this).parent().position();
+  var width = $(this).parent().width();
+    $("#tile-1 .slider").css({"left":+ position.left,"width":width});
+});
+var actWidth = $("#tile-1 .nav-tabs").find(".active").parent("li").width();
+var actPosition = $("#tile-1 .nav-tabs .active").position();
+$("#tile-1 .slider").css({"left":+ actPosition.left,"width": actWidth});
+</script>
