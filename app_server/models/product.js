@@ -49,9 +49,7 @@ module.exports = {
    return product.save();
   },
   async increasePurchaseCount(productId, value){
-    console.log(productId);
     const product = await Product.findOneAndUpdate({productId: productId}, {$inc: {purchaseCount: value}}).exec();
-    console.log(product);
     await StoreModel.increasePurchaseCount(product.storeId, value);
     return Promise.resolve();
   },

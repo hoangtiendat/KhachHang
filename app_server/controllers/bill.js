@@ -25,8 +25,6 @@ const bills = async (req, res) => {
 const bill_detail = async (req, res) => {
     try {
         const billDetail = await Bill.getBill(req.params.billId);
-        console.log(billDetail);
-        console.log(billDetail.billDetail);
         billDetail.billDetail.forEach((detail) => {
             detail.product.salePrice = parseInt(detail.product.price) - parseInt(detail.product.discount);
             detail.product.urlImage = detail.product.urlImage.split(constant.urlImageSeperator)[0];

@@ -69,11 +69,8 @@ const email =  async (req, res, next) => {
         res.redirect('/enterEmail');
         return;
       }
-      console.log(secretToken);
       user.secretToken = secretToken;
-      console.log(user);
       await user.save();
-      console.log(user);
       const html = `Hi there,
         <br/><br/>
         Hãy xác nhận tài khoản của bạn bằng cách gõ token sau đây:
@@ -139,7 +136,6 @@ const changePwd = async (req, res, next) => {
     try {
       const pwdOld = req.body.passwordOld;
       const pwd = req.body.password;
-      console.log(pwdOld);
       
       var user = null;
       if (req.isAuthenticated) {
@@ -149,9 +145,7 @@ const changePwd = async (req, res, next) => {
         res.redirect('/changePwd');
         return;
       }
-      console.log(user);
       const temp = bcrypt.compareSync(pwdOld, user.password);
-      console.log(temp);
       if(!temp){
         req.flash('error', 'Không có mật khẩu vừa nhập.');
         res.redirect('/changePwd');
@@ -159,7 +153,6 @@ const changePwd = async (req, res, next) => {
       }
       user.password = bcrypt.hashSync(req.body.password, constant.SALT_ROUND);
       await user.save();
-      console.log(user);
       req.flash('success', 'Đổi mật khẩu thành công, bây giờ bạn có thể đăng nhập lại.');
       res.redirect('/login');
     } catch(error) {
@@ -182,8 +175,6 @@ const signup =  async (req, res, next) => {
         let user = await User.checkUsername(req.body.username);
         let email = await User.checkEmail(req.body.email);
         const secretToken = randomstring.generate();
-        console.log(user);
-        console.log(secretToken);
         if (email){
             res.render('signup', {
                 title: 'Đăng ký',

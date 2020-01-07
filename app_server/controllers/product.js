@@ -113,7 +113,6 @@ const productDetail = async (req, res) => {
         relatedProducts.forEach((product) => {
             product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
         });
-        console.log('/item_detail/' + req.params.productId);
         res.render('item_detail', {
             title: product  .name,
             product: product,
@@ -137,21 +136,17 @@ const cart = async (req, res, next) => {
   const product = await Product.getProductById(productId);
   cart.add(product, productId);
   req.session.cart = cart;
-  console.log(req.url)
-  console.log(originalUrl);
   res.redirect(originalUrl);
 };
 
 const comment = async (req, res, next) => {
   const productId = req.params.id;
-  console.log(productId);
   if(req.user != null){
       const info = {
         userId: req.user.userId,
         productId: productId,
         comment: req.body.addComment
       }
-      console.log(info);
       const result = await Comment.addComment(info);
   }
   res.redirect('/item_detail/' + productId);
@@ -246,7 +241,6 @@ const advancedSearchResult = async (req, res) => {
     }
 
     json += '}';
-    console.log(json);
     const obj = JSON.parse(json);
 
     const products = await Product.advancedSearch(obj, perPage, page);

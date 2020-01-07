@@ -54,7 +54,6 @@ module.exports = {
                 status: constant.billDefaultStatus,
             });
             const result = await bill.save();
-            console.log(cart.getItems())
             for (let product of cart.getItems()){
                 await this.addBillDetail(bill.billId, product.item.productId, product.quantity);
                 await ProductModel.increasePurchaseCount(product.item.productId, product.quantity);

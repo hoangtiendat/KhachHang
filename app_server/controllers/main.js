@@ -46,8 +46,6 @@ const checkoutPage = (req, res, next) => {
 const checkout = async (req, res, next) => {
 	const cart = new Cart(req.session.cart);
 	const buyer = req.user;
-	console.log(cart);
-	console.log(buyer);
 	let info = {
 	buyerId: buyer.userId,
 	receiverName: req.body.name,
