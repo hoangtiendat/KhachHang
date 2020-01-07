@@ -117,29 +117,14 @@
                                         <div class="item-info-product text-center border-top mt-4">
                                             <h4 class="pt-1 text-center">
                                                 <a href="/item_detail/{{productId}}" class="text-center">{{name}}&nbsp;</a>
-                                                <p> {{category.categoryName}} </p>
-                                                <p> {{store.name}}</p>
                                             </h4>
                                             <div class="info-product-price my-2">
                                                 <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
                                                 <del>{{number price}}</del>
                                             </div>
-                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                <form action="#" method="post">
-                                                    <fieldset>
-                                                        <input type="hidden" name="cmd" value="_cart" />
-                                                        <input type="hidden" name="add" value="1" />
-                                                        <input type="hidden" name="business" value=" " />
-                                                        <input type="hidden" name="item_name" value="{{name}}" />
-                                                        <input type="hidden" name="amount" value="{{number price}}" />
-                                                        <input type="hidden" name="discount_amount" value="{{number (math price "-" discount)}}" />
-                                                        <input type="hidden" name="currency_code" value="VND" />
-                                                        <input type="hidden" name="return" value=" " />
-                                                        <input type="hidden" name="cancel_return" value=" " />
-                                                        <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                                                    </fieldset>
-                                                </form>
-                                            </div>
+                                            <a href="/add/{{productId}}" class="item_add single-item hvr-outline-out"><h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</h4></a>
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +132,25 @@
                         </div>
                     </div>
                     <!-- //template section -->
+                    <nav id="product-pagination" aria-label="Page navigation example">
+                      <ul class="pagination">
+                        {{#paginate pagination type="first"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="previous"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Prev</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="middle" limit="7"}}
+                          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="next"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
+                        {{/paginate}}
+                        {{#paginate pagination type="last"}}
+                          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
+                        {{/paginate}}
+                      </ul>
+                    </nav>
                 </div>
             </div>
             <!-- //product left -->

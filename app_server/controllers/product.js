@@ -96,9 +96,9 @@ const product = async (req, res) => {
 };
 
 const productDetail = async (req, res) => {
-    const page = parseInt(req.query.page) || 1;
+    const page = parseInt(req.query.p) || 1;
     const product = await Product.getProductById(req.params.productId);
-    const comments = await Comment.getCommentsByProduct(req.params.productId);
+    const comments = await Comment.getCommentsByProduct(req.params.productId, 3, page);
     const count = await Comment.getCountByProduct(req.params.productId);
     if (product){
         product.salePrice = parseInt(product.price) - parseInt(product.discount);
@@ -112,14 +112,15 @@ const productDetail = async (req, res) => {
         relatedProducts.forEach((product) => {
             product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
         });
+        console.log('/item_detail/' + req.params.productId);
         res.render('item_detail', {
             title: product  .name,
             product: product,
             imageUrlArr: product.urlImage.split(constant.urlImageSeperator),
             comments: comments,
-            page: page,
-            pages: Math.ceil(count / constant.perPage),
-            relatedProducts: relatedProducts
+            pagination: { page: page, pageCount: Math.ceil(count / 3)},
+            relatedProducts: relatedProducts,
+            originalUrl: '/item_detail/' + req.params.productId
         });
     } else {
         res.render('error', {

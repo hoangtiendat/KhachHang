@@ -283,7 +283,7 @@ module.exports = {
         resolve(result);
       });
     })
-  }
+  },
   searchProduct (keyword, perPage, page) {
       return Product.find({
         name:  { "$regex": keyword, "$options": "ig" }

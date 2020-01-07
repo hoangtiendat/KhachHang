@@ -1,4 +1,5 @@
 <!-- Single Page -->
+<script></script>
 <div class="banner-bootom-w3-agileits py-5">
     <div class="container py-xl-4 py-lg-2">
         <!-- tittle heading -->
@@ -56,34 +57,53 @@
                     </p>
                 </div>
                 <div class="occasion-cart">
-                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                        <form action="#" method="post">
-                            <fieldset>
-                                <input type="hidden" name="cmd" value="_cart" />
-                                <input type="hidden" name="add" value="1" />
-                                <input type="hidden" name="business" value=" " />
-                                <input type="hidden" name="item_name" value="{{product.name}}" />
-                                <input type="hidden" name="amount" value="{{number product.price}}" />
-                                <input type="hidden" name="discount_amount" value="{{number (math product.price "-" product.discount)}}" />
-                                <input type="hidden" name="currency_code" value="VND" />
-                                <input type="hidden" name="return" value=" " />
-                                <input type="hidden" name="cancel_return" value=" " />
-                                <input type="submit" name="submit" value="Thêm vào giỏ hàng" class="button btn" />
-                            </fieldset>
-                        </form>
-                    </div>
+                    <a href="/add/{{product.productId}}" class="item_add single-item hvr-outline-out"><h4><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</h4></a>
                 </div>
             </div>
         </div>
+              
+        <h4 class="tittle-w3l mt-5"><i class="fab fa-windows"></i> <span>S</span>ản phẩm thường được xem cùng</h4>
+        <div class="row position-relative">
+            <div id="relatedProducts" class="cS-hidden" style="width: 1000px;">
+                {{# each relatedProducts}}
+                    <div class="product-men mt-5">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item text-center">
+                                <a href="/item_detail/{{product.productId}}" class=""><img src="{{firstImageUrl}}" alt=""></a>
+                                {{#if new}}
+                                    <span class="product-new-top">Mới</span>
+                                {{/if}}
+                            </div>
+                            <div class="item-info-product text-center border-top mt-4">
+                                <h4 class="pt-1 text-center">
+                                    <a href="/item_detail/{{productId}}" class="text-center">{{name}}&nbsp;</a>
+                                </h4>
+                                <div class="info-product-price my-2">
+                                    <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
+                                    <del>{{number price}}</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <span id="related-product-slide-left" class="related-product-control related-product-control-left">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span id="related-product-slide-right" class="related-product-control related-product-control-right">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+        </div>
+        
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1" id="login">
                 <div class="page-header">
-                    <h3 class="reviews">Leave your comment</h3>
+                    <h3 class="reviews">Bình luận </h3>
                 </div>
                 <div class="comment-tabs">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" href="#comments-login" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
-                        {{#if req.user}}
+                        <li class="nav-item"><a class="nav-link" href="#comments-login" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
+                        {{#if user}}
                         <li class="nav-item"><a class="nav-link" href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4></a></li>
                         {{/if}}
                     </ul>            
@@ -110,41 +130,25 @@
                             {{/each}}         
                             </ul> 
                             <!--Pagination-->
-                            {{#compare pages ">" 0}}
-                                <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        {{#compare page "===" 1}}
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                        {{else}}
-                                            <li class="page-item">
-                                                <a class="page-link" href="/item_detail/{{product.productId}}?page={{dec page}}" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                        {{/compare}}
-
-                                        {{{generatePagination "item_detail/{{product.productId}}" page pages}}}
-
-                                        {{#compare page "===" pages}}
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        {{else}}
-                                            <li class="page-item">
-                                                <a class="page-link" href="/item_detail/{{product.productId}}?page={{inc page}}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        {{/compare}}
-                                    </ul>
-                                </nav>
-                            {{/compare}}
+                            <nav id="product-pagination" aria-label="Page navigation example">
+                              <ul class="pagination">
+                                {{#paginate pagination type="first"}}
+                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">First</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="previous"}}
+                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Prev</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="middle" limit="7"}}
+                                  <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" href="&p={{n}}">{{n}}</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="next"}}
+                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Next</a></li>
+                                {{/paginate}}
+                                {{#paginate pagination type="last"}}
+                                  <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="&p={{n}}">Last</a></li>
+                                {{/paginate}}
+                              </ul>
+                            </nav>
                             <div class="clearfix"> </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="add-comment">
@@ -166,38 +170,6 @@
                 </div>
             </div>
             
-        </div>                
-        <h4 class="tittle-w3l mt-5"><i class="fab fa-windows"></i> <span>S</span>ản phẩm thường được xem cùng</h4>
-        <div class="row position-relative">
-            <div id="relatedProducts" class="cS-hidden" style="width: 1000px;">
-                {{# each relatedProducts}}
-                    <div class="product-men mt-5">
-                        <div class="men-pro-item simpleCart_shelfItem">
-                            <div class="men-thumb-item text-center">
-                                <a href="/item_detail/{{productId}}" class=""><img src="{{firstImageUrl}}" alt=""></a>
-                                {{#if new}}
-                                    <span class="product-new-top">Mới</span>
-                                {{/if}}
-                            </div>
-                            <div class="item-info-product text-center border-top mt-4">
-                                <h4 class="pt-1 text-center">
-                                    <a href="/item_detail/{{productId}}" class="text-center">{{name}}&nbsp;</a>
-                                </h4>
-                                <div class="info-product-price my-2">
-                                    <span class="item_price">{{number (math price "-" discount)}} VNĐ</span>
-                                    <del>{{number price}}</del>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-            <span id="related-product-slide-left" class="related-product-control related-product-control-left">
-                <i class="fas fa-arrow-left"></i>
-            </span>
-            <span id="related-product-slide-right" class="related-product-control related-product-control-right">
-                <i class="fas fa-arrow-right"></i>
-            </span>
-        </div>
+        </div>  
     </div>
 </div>

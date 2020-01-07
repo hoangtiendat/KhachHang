@@ -7,13 +7,17 @@ const Cart = require('../models/cart');
 const Bill = require('../models/bill');
 
 const home = async (req, res) => {
-	const products = await Product.getAllProduct({new: true}, {createdDate: -1});
+	var perPage = 6;
+    var page = parseInt(req.query.p) || 1;
+	const products = await Product.getProduct({new: true}, {createdDate: -1}, perPage, page);
 	products.forEach((product) => {
 		product.firstImageUrl = product.urlImage.split(constant.urlImageSeperator)[0];
 	});
+	const count = await Product.getCount({new: true});
 	res.render('index', {
 		title: 'Trang chủ',
 		products: products,
+		pagination: { page: page, pageCount: Math.ceil(count / perPage)}
 	});
 };
 

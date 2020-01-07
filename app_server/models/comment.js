@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const Comment = mongoose.model('Comment');
 
 module.exports = {
-  getCommentsByProduct(productId){
+  getCommentsByProduct(productId, perPage, page){
     return Comment.find({"productId": productId})
     .populate("user")
+    .limit(perPage)
+    .skip(perPage * (page - 1))
     .exec();
   },
   getCountByProduct(productId){
