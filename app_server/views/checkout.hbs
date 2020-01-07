@@ -7,14 +7,13 @@
         </h3>
         <!-- //tittle heading -->
         <div class="checkout-right">
-            <h4 class="mb-sm-4 mb-3">Giỏ hàng của bạn có
-                <span>3 sản phẩm</span>
-            </h4>
+            
             <div class="table-responsive">
+            {{# if products }}
                 <table class="timetable_sub">
                     <thead>
+
                     <tr>
-                        <th>STT.</th>
                         <th>Sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Tên sản phẩm</th>
@@ -24,134 +23,187 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="rem1">
-                        <td class="invert">1</td>
+                    {{# each products }}
+                    <tr class="rem">
                         <td class="invert-image">
                             <a href="single.html">
-                                <img src="images/a.jpg" alt=" " class="img-responsive">
+                                <img src="{{{this.item.urlImage}}}" alt=" " class="img-responsive">
                             </a>
                         </td>
                         <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value">
-                                        <span>1</span>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number" disabled data-type="minus" data-field="quant[1]" data-productId="{{this.item.productId}}">
+                                              <span class="fa fa-minus">
+                                              </span>
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10" data-productId="{{this.item.productId}}">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]" data-productId="{{this.item.productId}}">
+                                              <span class="fa fa-plus"></span>
+                                            </button>
+                                        </span>
                                     </div>
-                                    <div class="entry value-plus active">&nbsp;</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="invert">Back Cover</td>
-                        <td class="invert">4.000.000 VNĐ</td>
+                        <td class="invert">{{{this.item.name}}}</td>
+                        <td class="invert">{{number this.price }} VNĐ</td>
                         <td class="invert">
-                            <div class="rem">
-                                <div class="close1"> </div>
-                            </div>
+                            <a href="/remove/{{this.item.productId}}" class="btn btn-default"></i> Remove</a>
                         </td>
                     </tr>
-                    <tr class="rem2">
-                        <td class="invert">2</td>
-                        <td class="invert-image">
-                            <a href="single2.html">
-                                <img src="images/a4.jpg" alt=" " class="img-responsive">
-                            </a>
-                        </td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Cordless Trimmer</td>
-                        <td class="invert">2.000.000 VNĐ</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close2"> </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="rem3">
-                        <td class="invert">3</td>
-                        <td class="invert-image">
-                            <a href="single.html">
-                                <img src="images/a3.jpg" alt=" " class="img-responsive">
-                            </a>
-                        </td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">Nikon Camera</td>
-                        <td class="invert">5.000.000 VNĐ</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close3"> </div>
-                            </div>
-                        </td>
-                    </tr>
+                    {{/each}}
                     </tbody>
                 </table>
+                <div class="table-right">
+                    <table class="one">
+                        <tr>
+                            <td>Tạm tính:</td>
+                            <td>{{number totalPrice }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Phí giao:</td>
+                            <td>{{number (math totalPrice "/" 50) }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td><h5>Tổng cộng:</h5></td>
+                            <td><h5>{{number (math totalPrice "+" (math totalPrice "/" 50)) }} VNĐ</h5></td>
+                        </tr>
+                    </table>
+                </div>
+            {{ else }}
+                <h4 class="mb-sm-4 mb-3">
+                    Giỏ hàng của bạn
+                    <span>trống.</span>
+                </h4>
+            {{/if}}
             </div>
         </div>
         <div class="checkout-left">
             <div class="address_form_agile mt-sm-5 mt-4">
                 <h4 class="mb-sm-4 mb-3">Thêm thông tin giao hàng</h4>
-                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                <form action="/checkout" method="post" class="creditly-card-form agileinfo_form">
                     <div class="creditly-wrapper wthree, w3_agileits_wrapper">
                         <div class="information-wrapper">
                             <div class="first-row">
                                 <div class="controls form-group">
-                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Họ tên" required="">
+                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Họ tên" value="{{myAppend user.firstName user.lastName}}" required="">
                                 </div>
                                 <div class="w3_agileits_card_number_grids">
                                     <div class="w3_agileits_card_number_grid_left form-group">
                                         <div class="controls">
-                                            <input type="text" class="form-control" placeholder="Số điện thoại" name="number" required="">
+                                            <input type="text" class="form-control" placeholder="Số điện thoại" name="phone" value="{{user.phone}}" required="">
                                         </div>
                                     </div>
                                     <div class="w3_agileits_card_number_grid_right form-group">
                                         <div class="controls">
-                                            <input type="text" class="form-control" placeholder="Địa chỉ" name="landmark" required="">
+                                            <input type="text" class="form-control" placeholder="Email" name="email" value="{{user.email}}" required="">
+                                        </div>
+                                    </div>
+                                    <div class="w3_agileits_card_number_grid_right form-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Địa chỉ" name="address" value="{{user.address}}" required="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="controls form-group">
-                                    <input type="text" class="form-control" placeholder="Tỉnh thành" name="city" required="">
+                                    <input type="text" class="form-control" placeholder="Tỉnh thành" name="city" value="{{user.city}}" required="">
+                                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Mô tả"></textarea>
                                 </div>
-                                <div class="controls form-group">
-                                    <select class="option-w3ls">
-                                        <option>Loại địa chỉ</option>
-                                        <option>Văn phòng</option>
-                                        <option>Nhà</option>
-                                        <option>Thương mại</option>
-
-                                    </select>
-                                </div>
+                                
                             </div>
                             <button class="submit check_out btn">Giao hàng tới địa chỉ này</button>
                         </div>
                     </div>
                 </form>
-                <div class="checkout-right-basket">
-                    <a href="payment.html">Thanh toán
-                        <span class="far fa-hand-point-right"></span>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="../javascripts/jquery-2.2.3.min.js"></script>
+<script>
+const $inputNumber = $('.input-number');
+$inputNumber.focusin(function(){
+   $(this).data('oldValue', $(this).val());
+});
+$inputNumber.on('change', function() {
+    
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+    console.log(valueCurrent);
+    debugger;
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").attr('disabled', false);
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").attr('disabled', false);
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+});
+$inputNumber.keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+$('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $(this).parent().siblings("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    const productId = $(this).attr("data-productId");
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+        }
+    } else {
+        input.val(0);
+    }
+    $inputNumber.each(function (key, value) {
+        const $this = $(this);
+        if ($this.attr("data-productId") === productId){
+            $this.change();
+            $this.trigger("change");
+        }
+    });
+});
+</script>
 <!-- //checkout page -->

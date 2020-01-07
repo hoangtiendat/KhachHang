@@ -5,9 +5,9 @@ const ctrlMain = require('../controllers/main');
 const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
+const billCtrl = require('../controllers/bill');
 require('./passport');
 
-var Cart = require('../models/cart');
 /* GET Home page. */
 router.get('/', ctrlMain.home);
 
@@ -60,11 +60,13 @@ router.post('/product', productCtrl.product);
 /* GET item Detail page. */
 router.get('/item_detail/:productId', productCtrl.productDetail);
 
-router.get('/checkout', ctrlMain.checkout);
+router.get('/checkout', ctrlMain.checkoutPage);
 
 router.post('/checkout', ctrlMain.checkout);
 
-router.get('/history', ctrlMain.history);
+router.get('/history', billCtrl.bills);
+
+router.get('/bill_detail/:billId', billCtrl.bill_detail);
 
 router.get('/search', ctrlMain.search);
 
@@ -88,30 +90,12 @@ router.get('/help', ctrlMain.help);
 
 router.get('/faqs', ctrlMain.faqs);
 
-var products = require('../models/product');
 router.get('/add/:id', productCtrl.cart);
 
-router.get('/cart', function(req, res, next) {
-  if (!req.session.cart) {
-    return res.render('cart', {
-      // products: null
-    });
-  }
-  var cart = new Cart(req.session.cart);
-  res.render('cart', {
-    title: 'NodeJS Shopping Cart',
-    products: cart.getItems(),
-    totalPrice: cart.totalPrice
-  });
-});
 
-router.get('/remove/:id', function(req, res, next) {
-  var productId = req.params.id;
-  var cart = new Cart(req.session.cart ? req.session.cart : {});
+router.get('/remove/:id', ctrlMain.removeCard);
 
-  cart.remove(productId);
-  req.session.cart = cart;
-  res.redirect('/cart');
-});
+
+router.post('/comment/:id', productCtrl.comment);
 
 module.exports = router;

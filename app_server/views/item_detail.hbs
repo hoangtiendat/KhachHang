@@ -75,5 +75,97 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1" id="login">
+                <div class="page-header">
+                    <h3 class="reviews">Leave your comment</h3>
+                </div>
+                <div class="comment-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" href="#comments-login" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
+                        {{#if req.user}}
+                        <li class="nav-item"><a class="nav-link" href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4></a></li>
+                        {{/if}}
+                    </ul>            
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="comments-login">                
+                            <ul class="media-list">
+                            {{# each comments}}
+                              <li class="media">
+                                <a class="pull-left" href="#">
+                                  <img class="media-object img-circle" src="../images/avatar.png" alt="profile">
+                                </a>
+                                <div class="media-body">
+                                  <div class="well well-lg">
+                                      <h4 class="media-heading text-uppercase reviews">{{user.username}}</h4>
+                                      <ul class="media-date text-uppercase reviews list-inline">
+                                        <li class="dd/mm/aaaa">{{parseDate createdDate " ."}}</li>
+                                      </ul>
+                                      <p class="media-comment">
+                                        {{content}}
+                                      </p>
+                                  </div>              
+                                </div>
+                              </li>
+                            {{/each}}         
+                            </ul> 
+                            <!--Pagination-->
+                            {{#compare pages ">" 0}}
+                                <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        {{#compare page "===" 1}}
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        {{else}}
+                                            <li class="page-item">
+                                                <a class="page-link" href="/item_detail/{{product.productId}}?page={{dec page}}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        {{/compare}}
+
+                                        {{{generatePagination "item_detail/{{product.productId}}" page pages}}}
+
+                                        {{#compare page "===" pages}}
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        {{else}}
+                                            <li class="page-item">
+                                                <a class="page-link" href="/item_detail/{{product.productId}}?page={{inc page}}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        {{/compare}}
+                                    </ul>
+                                </nav>
+                            {{/compare}}
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="add-comment">
+                            <form action="/comment/{{product.productId}}" method="post" class="form-horizontal" id="commentForm" role="form">
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">Comment</label>
+                                    <div class="col-sm-10">
+                                      <textarea class="form-control" name="addComment" id="addComment" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">                    
+                                        <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
+                                    </div>
+                                </div>            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>                
     </div>
 </div>

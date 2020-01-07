@@ -39,6 +39,10 @@
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+      
   </head>
   <body>
       <!-- top-header -->
@@ -244,25 +248,36 @@
                                 {{# if session.cart.totalItems }}
                                 <div class="dropdown-menu">
                                     <div class="cart">
-                                        {{# each session.cart.items }}
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                {{ this.item.title }}
-                                            </div>
-                                            <div class="col-xs-4 text-right">
-                                                <span class="badge">{{ this.quantity }}</span>
-                                            </div>
-                                            <div class="col-xs-4 text-right">
-                                                {{ this.price }} VNĐ
-                                            </div>
-                                        </div>
-                                        {{/each}}
-                                        <div class="row">
-                                            <div class="text-right">
-                                                <div class="totalPrice">Total: {{ session.cart.totalPrice }} VNĐ</div>
-                                                <a href="/cart/" class="btn btn-success">Procceed</a>
-                                            </div>
-                                        </div>
+                                      <div class="row">
+                                          <div class="col-6 text-left">
+                                              <span class="badge">Tên</span>
+                                          </div>
+                                          <div class="col-1 text-right">
+                                              <span class="badge">SL</span>
+                                          </div>
+                                          <div class="col-5 text-right">
+                                              Giá
+                                          </div>
+                                      </div>
+                                      {{# each session.cart.items }}
+                                      <div class="row">
+                                          <div class="col-6 text-left">
+                                              <span class="badge">{{trimString this.item.name }}</span>
+                                          </div>
+                                          <div class="col-1 text-right">
+                                              <span class="badge">{{ this.quantity }}</span>
+                                          </div>
+                                          <div class="col-5 text-right">
+                                              <span class="badge">{{number this.price }} VNĐ</span>
+                                          </div>
+                                      </div>
+                                      {{/each}}
+                                      <div class="row">
+                                          <div class="text-right">
+                                              <div class="totalPrice">Tổng: {{number session.cart.totalPrice }} VNĐ</div>
+                                              <a href="/checkout/" class="btn btn-success">Thanh toán</a>
+                                          </div>
+                                      </div>
                                     </div>
                                 </div>
                                 {{/if}}

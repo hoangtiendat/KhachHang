@@ -3,6 +3,8 @@ const Product = require('../models/product');
 const passport = require('passport');
 const User = require('../models/user');
 const constant = require('../Utils/constant');
+const Cart = require('../models/cart');
+const Bill = require('../models/bill');
 
 const home = async (req, res) => {
 	const products = await Product.getAllProduct({new: true}, {createdDate: -1});
@@ -15,10 +17,59 @@ const home = async (req, res) => {
 	});
 };
 
-const checkout = (req, res) => {
-	res.render('checkout', {
-		title: 'Thanh toán',
-	});
+const checkoutPage = (req, res, next) => {
+	if (req.user != null) { 
+		if (!req.session.cart) {
+	    return res.render('checkout', {
+	      title: 'Thanh toán',
+	      user: req.user
+	      // products: null
+	    });
+	  	}
+	  	var cart = new Cart(req.session.cart);
+	  	res.render('checkout', {
+	    	title: 'Thanh toán',
+	    	products: cart.getItems(),
+	    	totalPrice: cart.totalPrice,
+	    	user: req.user
+	  	});
+	} else {
+		res.redirect('/login');
+	}
+};
+
+const checkout = async (req, res, next) => {
+	const cart = new Cart(req.session.cart);
+	const buyer = req.user;
+	console.log(cart);
+	console.log(buyer);
+	let info = {
+	buyerId: buyer.userId,
+	receiverName: req.body.name,
+	phone: req.body.phone,
+	email: req.body.email,
+	address: req.body.address,
+	city: req.body.city,
+	description: req.body.description
+	}
+	const result = await Bill.addBill(cart, info);
+	if (result){
+        //Success
+        req.session.cart = '';
+        res.redirect('/');
+    } else {
+        //Fail
+        res.redirect('/checkout');
+    }
+};
+
+const removeCard = (req, res, next) => {
+	var productId = req.params.id;
+	var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+	cart.remove(productId);
+	req.session.cart = cart;
+	res.redirect('/checkout');
 };
 
 const history = (req, res) => {
@@ -32,50 +83,6 @@ const search = (req, res) => {
 		title: 'Tìm kiếm',
 	});
 };
-
-// const profilePage = (req, res) => {
-// 	res.render('profile', {
-// 		title: 'Hồ sơ',
-// 		user: (req.isAuthenticated) ? req.user : null
-// 	});
-// };
-// const profile = async (req, res) => {
-//     if (!req.isAuthenticated()){
-//         res.redirect('/login');
-//     } else {
-//         try {
-//             const info = {
-//                 firstName: req.body.firstName || "",
-//                 lastName: req.body.lastName || "",
-//                 gender: req.body.gender || "",
-//                 email: req.body.email || "",
-//                 birthDate: req.body.birthDate || "",
-//                 phone: req.body.phone || "",
-//                 address: req.body.address || "",
-//                 city: req.body.city || "",
-//             };
-//             const user = await User.setUserInfo(req.user.userId, info);
-//             if (user) {
-//                 res.redirect('/profile');
-//             } else {
-//                 const user = await User.getUser(req.user.userId);
-//                 const cities = await Param.getAllCity();
-//                 res.render('edit_profile', {
-//                     title: 'Hồ sơ',
-//                     user: Object.assign({}, user._doc, {
-//                         birthDate: (user.birthDate)? user.birthDate.toString() : "",
-//                         createdDate: user.createdDate.toString(),
-//                         error_message: "Cập nhật thông tin thất bại"
-//                     }),
-//                     cities: cities
-//                 });
-//             }
-
-//         } catch(err) {
-//             console.log('err', err);
-//         }
-//     }
-// };
 
 const contact = (req, res) => {
 	res.render('contact', {
@@ -115,6 +122,7 @@ const faqs = (req, res) => {
 
 module.exports = {
 	home,
+	checkoutPage,
 	checkout,
 	history,
 	search,
@@ -123,5 +131,6 @@ module.exports = {
 	privacy,
 	terms,
 	help,
-	faqs
+	faqs,
+	removeCard
 };

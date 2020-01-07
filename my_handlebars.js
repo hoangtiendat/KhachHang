@@ -93,6 +93,18 @@ hbs.registerHelper("select", function(value, options) {
         })
         .join('\n')
 });
+hbs.registerHelper("getBillStatusClass", function(status) {
+    switch (status) {
+        case constant.billStatus.waiting:
+            return "text-danger";
+        case constant.billStatus.onGoing:
+            return "text-warning";
+        case constant.billStatus.complete:
+            return "text-success";
+        default:
+            return "";
+    }
+});
 hbs.registerHelper("check", function(value, options) {
     return options.fn(this)
         .split('\n')
@@ -110,7 +122,15 @@ hbs.registerHelper("compare", helpers.compare);
 hbs.registerHelper("default", helpers.default);
 hbs.registerHelper("append", helpers.append);
 hbs.registerHelper("compare", helpers.compare);
-
+hbs.registerHelper('trimString', function(passedString) {
+    var theString = "";
+    if (passedString.length > 16){
+        theString = passedString.substring(0,16) + "...";
+    } else {
+        theString = passedString;
+    }
+    return new hbs.SafeString(theString)
+});
 var paginate = require('handlebars-paginate');
 hbs.registerHelper('paginate', paginate);
 

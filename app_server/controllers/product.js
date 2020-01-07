@@ -4,12 +4,14 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 const Brand = require('../models/brand');
 const constant = require('../Utils/constant');
-var Cart = require('../models/cart');
+const Cart = require('../models/cart');
+const Comment = require('../models/comment');
 
 const product = async (req, res) => {
     var perPage = 6;
     var page = parseInt(req.query.p) || 1;
     var originalUrl = req.originalUrl;
+    req.session.originalUrl = originalUrl;
     localStorage.setItem('myFirstKey', 'myFirstValue');
     if(req.query.categoryType){
         localStorage.setItem('category', req.query.categoryType || req.params.category);
@@ -70,7 +72,6 @@ const product = async (req, res) => {
     }
 
     json += '}';
-    console.log(json);
     const obj = JSON.parse(json);
     var sort = '{}';
     if (req.query.sort){
@@ -94,53 +95,20 @@ const product = async (req, res) => {
     });
 };
 
-// const productCategory = async (req, res) => {
-//     const products = await Product.getProductByCategory(req.query.category);
-//     let title = "";
-//     switch(req.query.category){
-//         case "phone":
-//             title = "Điện thoại"
-//             break;
-//         case "laptop":
-//             title = "Laptop"
-//             break;
-//         case "tablet":
-//             title = "Tablet"
-//             break;
-//         case "watch":
-//             title = "Đồng hồ"
-//             break;
-//         default:
-//     }
-//     res.render('product', { title: title, products: products, user: (req.isAuthenticated) ? req.user : null });
-// };
-
-// const productstore = async (req, res) => {
-//     const products = await Product.getProductBystore(req.query.store);
-//     let title = "";
-//     switch(req.query.store){
-//         case "apple":
-//             title = "Sản phẩm của Apple";
-//             break;
-//         case "samsung":
-//             title = "Sản phẩm của Samsung";
-//             break;
-//         case "other":
-//             title = "Sản phẩm của hãng khác";
-//             break;
-//         default:
-//     }
-//     res.render('product', { title: title, products: products, user: (req.isAuthenticated) ? req.user : null });
-// };
-
 const productDetail = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
     const product = await Product.getProductById(req.params.productId);
+    const comments = await Comment.getCommentsByProduct(req.params.productId);
+    const count = await Comment.getCountByProduct(req.params.productId);
     if (product){
         product.salePrice = parseInt(product.price) - parseInt(product.discount);
         res.render('item_detail', {
             title: product  .name,
             product: product,
-            imageUrlArr: product.urlImage.split(constant.urlImageSeperator)
+            imageUrlArr: product.urlImage.split(constant.urlImageSeperator),
+            comments: comments,
+            page: page,
+            pages: Math.ceil(count / constant.perPage),
         });
     } else {
         res.render('error', {
@@ -151,19 +119,36 @@ const productDetail = async (req, res) => {
 };
 const cart = async (req, res, next) => {
   var productId = req.params.id;
-  console.log(productId);
+  var originalUrl = req.session.originalUrl;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   const product = await Product.getProductById(productId);
-  console.log(product);
   cart.add(product, productId);
-  console.log(cart);
   req.session.cart = cart;
-  res.redirect('/');
+  console.log(req.url)
+  console.log(originalUrl);
+  res.redirect(originalUrl);
 };
+
+const comment = async (req, res, next) => {
+  const productId = req.params.id;
+  console.log(productId);
+  if(req.user != null){
+      const info = {
+        userId: req.user.userId,
+        productId: productId,
+        comment: req.body.addComment
+      }
+      console.log(info);
+      const result = await Comment.addComment(info);
+  }
+  res.redirect('/item_detail/' + productId);
+};
+
+
+
 module.exports = {
     product,
-    // productCategory,
-    // productstore,
     productDetail,
-    cart
+    cart,
+    comment
 };

@@ -48,7 +48,7 @@ const storeSchema = new mongoose.Schema({
     purchaseCount: Number,
     createdDate: Date,
 }, { toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+    toObject: { virtuals: true }
 });
 storeSchema.virtual('brand',{
     ref: 'Brand',
@@ -84,7 +84,7 @@ const productSchema = new mongoose.Schema({
     purchaseCount: Number,
     createdDate: Date
 }, { toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+    toObject: { virtuals: true }
 });
 
 productSchema.virtual('store',{
@@ -118,7 +118,7 @@ const billSchema = new mongoose.Schema({
     deliveryDate: Date,
     status: String,
 }, { toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+    toObject: { virtuals: true }
 });
 billSchema.virtual('buyer',{
     ref: 'User',
@@ -126,11 +126,11 @@ billSchema.virtual('buyer',{
     foreignField: 'userId',
     justOne: true
 });
-billSchema.virtual('product',{
-    ref: 'Product',
-    localField: 'productId',
-    foreignField: 'productId',
-    justOne: true
+billSchema.virtual('billDetail',{
+    ref: 'BillDetail',
+    localField: 'billId',
+    foreignField: 'billId',
+    justOne: false
 });
 billSchema.index({coords: '2dsphere'});
 billSchema.plugin(AutoIncrement, {inc_field: 'billId'});
@@ -142,7 +142,7 @@ const billDetailSchema = new mongoose.Schema({
     productId: Number,
     amount: Number
 }, { toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+    toObject: { virtuals: true }
 });
 billDetailSchema.virtual('bill',{
     ref: 'Bill',
@@ -150,14 +150,13 @@ billDetailSchema.virtual('bill',{
     foreignField: 'billId',
     justOne: true
 });
-billSchema.virtual('billDetail',{
-    ref: 'BillDetail',
-    localField: 'billId',
-    foreignField: 'billId',
+billDetailSchema.virtual('product',{
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: 'productId',
     justOne: true
 });
 billDetailSchema.index({coords: '2dsphere'});
-billDetailSchema.plugin(AutoIncrement, {inc_field: 'billDetailId'});
 mongoose.model('BillDetail', billDetailSchema);
 
 //Comment
@@ -167,7 +166,7 @@ const commentSchema = new mongoose.Schema({
     content: String,
     createdDate: Date
 }, { toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+    toObject: { virtuals: true }
 });
 commentSchema.virtual('user',{
     ref: 'User',
