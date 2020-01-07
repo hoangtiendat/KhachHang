@@ -51,7 +51,7 @@ const verify = async (req, res, next) => {
   }
 const emailPage = (req, res) => {
     res.render('enterEmail', {
-        title: 'Xác nhận Email',
+        title: 'Nhập Email',
         layout: false,
         error_messages: req.flash('error'),
         success_messages: req.flash('success')
@@ -64,8 +64,6 @@ const email =  async (req, res, next) => {
       // Find account with matching secret token
       const secretToken = randomstring.generate();
       const user = await User.findEmail(email);
-      console.log(user);
-      console.log(email);
       if (!user) {
         req.flash('error', 'Không có người dùng với Email vừa nhập.');
         res.redirect('/enterEmail');
@@ -200,7 +198,7 @@ const signup =  async (req, res, next) => {
                 error_messages: "Tên đăng nhập đã tồn tại !!!"
             });
         } else {
-            const result = await User.addUser(req.body.username, req.body.email, req.body.password, secretToken);
+            const result = await User.addUser(req.body.firstName, req.body.lastName, req.body.username, req.body.email, req.body.phone, req.body.address, req.body.password, secretToken);
 
             const html = `Chào bạn!,
               <br/>

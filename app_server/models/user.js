@@ -16,12 +16,16 @@ module.exports = {
     findEmail(email){
         return User.findOne({email: email}).exec();
     },
-    addUser(username, email, password, secretToken){
+    addUser(firstName, lastName, username, email, phone, address, password, secretToken){
         return new Promise((resolve, reject) => {
             bcrypt.hash(password, constant.SALT_ROUNDS, (err,   hash) => {
                 const newUser = new User({
+                    firstName: firstName,
+                    lastName: lastName,
                     username: username,
                     email: email,
+                    phone: phone,
+                    address: address,
                     password: hash,
                     type: constant.type["customer"],
                     isActive: false,

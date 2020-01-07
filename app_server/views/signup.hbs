@@ -20,7 +20,7 @@
 
 </head>
 <body>
-    <div class="bg-image"></div>
+    <div class="bg-image-v2"></div>
     <div class="container signup-container">
         <!-- modals -->
         <!-- log in -->
@@ -38,13 +38,31 @@
                             {{#if error_messages }}
                               <div class="alert alert-danger">{{error_messages}}</div>
                             {{/if}}
+                            <div class="row">
+                                <div class="form-group  col-md-6">
+                                    <label class="col-form-label">Họ</label>
+                                    <input type="text" class="form-control" placeholder="Họ" name="firstName" required="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Tên</label>
+                                    <input type="text" class="form-control" placeholder="Tên" name="lastName" required="">
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label class="col-form-label">Tên tài khoản</label>
-                                <input type="text" class="form-control" placeholder="Tên tài khoản" name="username" required="">
+                                <label class="col-form-label">Tên đăng nhập</label>
+                                <input type="text" class="form-control" placeholder="Tên đăng nhập" name="username" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Email</label>
                                 <input type="email" class="form-control" placeholder="Email" name="email" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Số điện thoại</label>
+                                <input type="phone" class="form-control" placeholder="Số điện thoại" name="phone" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Địa chỉ</label>
+                                <input type="address" class="form-control" placeholder="Địa chỉ" name="address" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Mật khẩu</label>
