@@ -29,7 +29,7 @@ const verifyPage = (req, res) => {
 }
 const verify = async (req, res, next) => {
     try {
-      const { secretToken } = req.body.secretToken;
+      const secretToken = req.body.secretToken;
 
       // Find account with matching secret token
       const user = await User.findToken(secretToken);
