@@ -39,7 +39,7 @@ const verify = async (req, res, next) => {
         return;
       }
 
-      user.active = true;
+      user.isActive = true;
       user.secretToken = '';
       await user.save();
 
